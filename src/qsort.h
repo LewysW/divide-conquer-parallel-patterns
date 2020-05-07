@@ -1,5 +1,8 @@
+#ifndef CS4204_P2_DC_QSORT_H
+#define CS4204_P2_DC_QSORT_H
+
 /* C implementation QuickSort */
-#include<stdio.h>
+#include<cstdio>
 
 // A utility function to swap two elements
 void swap(int* a, int* b)
@@ -51,24 +54,5 @@ void quickSort(int arr[], int low, int high)
     }
 }
 
-/* Function to print an array */
-void printArray(int arr[], int size)
-{
-    int i;
-    for (i=0; i < size; i++)
-        printf("%d ", arr[i]);
-    printf("n");
-}
 
-// Driver program to test above functions
-//int main()
-//{
-//    // you will need to modify all parameters
-//    // you can try to create larger arrays by generating them with randomized elements
-//    int arr[] = {10, 7, 8, 9, 1, 5};
-//    int n = sizeof(arr)/sizeof(arr[0]);
-//    quickSort(arr, 0, n-1);
-//    printf("Sorted array: n");
-//    printArray(arr, n);
-//    return 0;
-//}
+#endif //CS4204_P2_DC_QSORT_H

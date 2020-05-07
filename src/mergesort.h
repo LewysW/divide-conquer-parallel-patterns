@@ -1,6 +1,9 @@
+#ifndef CS4204_P2_DC_MERGESORT_H
+#define CS4204_P2_DC_MERGESORT_H
+
 /* C program for Merge Sort */
-#include<stdlib.h>
-#include<stdio.h>
+#include<cstdlib>
+#include<cstdio>
 
 // Merges two subarrays of arr[].
 // First subarray is arr[l..m]
@@ -76,30 +79,4 @@ void mergeSort(int arr[], int l, int r)
     }
 }
 
-///* UTILITY FUNCTIONS */
-///* Function to print an array */
-//void printArray(int A[], int size)
-//{
-//    int i;
-//    for (i=0; i < size; i++)
-//        printf("%d ", A[i]);
-//    printf("\n");
-//}
-
-/* Driver program to test above functions */
-//int main()
-//{
-//    // you will need to modify all parameters
-//    // you can try to create larger arrays by generating them with randomized elements
-//    int arr[] = {12, 11, 13, 5, 6, 7};
-//    int arr_size = sizeof(arr)/sizeof(arr[0]);
-//
-//    printf("Given array is \n");
-//    printArray(arr, arr_size);
-//
-//    mergeSort(arr, 0, arr_size - 1);
-//
-//    printf("\nSorted array is \n");
-//    printArray(arr, arr_size);
-//    return 0;
-//}
+#endif //CS4204_P2_DC_MERGESORT_H

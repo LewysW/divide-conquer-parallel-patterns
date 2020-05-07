@@ -123,32 +123,32 @@ CS4204_P2_DC/fast:
 	$(MAKE) -f CMakeFiles/CS4204_P2_DC.dir/build.make CMakeFiles/CS4204_P2_DC.dir/build
 .PHONY : CS4204_P2_DC/fast
 
-DCSkeleton.o: DCSkeleton.cpp.o
+FibSkeleton.o: FibSkeleton.cpp.o
 
-.PHONY : DCSkeleton.o
+.PHONY : FibSkeleton.o
 
 # target to build an object file
-DCSkeleton.cpp.o:
-	$(MAKE) -f CMakeFiles/CS4204_P2_DC.dir/build.make CMakeFiles/CS4204_P2_DC.dir/DCSkeleton.cpp.o
-.PHONY : DCSkeleton.cpp.o
+FibSkeleton.cpp.o:
+	$(MAKE) -f CMakeFiles/CS4204_P2_DC.dir/build.make CMakeFiles/CS4204_P2_DC.dir/FibSkeleton.cpp.o
+.PHONY : FibSkeleton.cpp.o
 
-DCSkeleton.i: DCSkeleton.cpp.i
+FibSkeleton.i: FibSkeleton.cpp.i
 
-.PHONY : DCSkeleton.i
+.PHONY : FibSkeleton.i
 
 # target to preprocess a source file
-DCSkeleton.cpp.i:
-	$(MAKE) -f CMakeFiles/CS4204_P2_DC.dir/build.make CMakeFiles/CS4204_P2_DC.dir/DCSkeleton.cpp.i
-.PHONY : DCSkeleton.cpp.i
+FibSkeleton.cpp.i:
+	$(MAKE) -f CMakeFiles/CS4204_P2_DC.dir/build.make CMakeFiles/CS4204_P2_DC.dir/FibSkeleton.cpp.i
+.PHONY : FibSkeleton.cpp.i
 
-DCSkeleton.s: DCSkeleton.cpp.s
+FibSkeleton.s: FibSkeleton.cpp.s
 
-.PHONY : DCSkeleton.s
+.PHONY : FibSkeleton.s
 
 # target to generate assembly for a file
-DCSkeleton.cpp.s:
-	$(MAKE) -f CMakeFiles/CS4204_P2_DC.dir/build.make CMakeFiles/CS4204_P2_DC.dir/DCSkeleton.cpp.s
-.PHONY : DCSkeleton.cpp.s
+FibSkeleton.cpp.s:
+	$(MAKE) -f CMakeFiles/CS4204_P2_DC.dir/build.make CMakeFiles/CS4204_P2_DC.dir/FibSkeleton.cpp.s
+.PHONY : FibSkeleton.cpp.s
 
 Task.o: Task.cpp.o
 
@@ -204,87 +204,6 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles/CS4204_P2_DC.dir/build.make CMakeFiles/CS4204_P2_DC.dir/main.cpp.s
 .PHONY : main.cpp.s
 
-mergesort.o: mergesort.c.o
-
-.PHONY : mergesort.o
-
-# target to build an object file
-mergesort.c.o:
-	$(MAKE) -f CMakeFiles/CS4204_P2_DC.dir/build.make CMakeFiles/CS4204_P2_DC.dir/mergesort.c.o
-.PHONY : mergesort.c.o
-
-mergesort.i: mergesort.c.i
-
-.PHONY : mergesort.i
-
-# target to preprocess a source file
-mergesort.c.i:
-	$(MAKE) -f CMakeFiles/CS4204_P2_DC.dir/build.make CMakeFiles/CS4204_P2_DC.dir/mergesort.c.i
-.PHONY : mergesort.c.i
-
-mergesort.s: mergesort.c.s
-
-.PHONY : mergesort.s
-
-# target to generate assembly for a file
-mergesort.c.s:
-	$(MAKE) -f CMakeFiles/CS4204_P2_DC.dir/build.make CMakeFiles/CS4204_P2_DC.dir/mergesort.c.s
-.PHONY : mergesort.c.s
-
-pfib.o: pfib.c.o
-
-.PHONY : pfib.o
-
-# target to build an object file
-pfib.c.o:
-	$(MAKE) -f CMakeFiles/CS4204_P2_DC.dir/build.make CMakeFiles/CS4204_P2_DC.dir/pfib.c.o
-.PHONY : pfib.c.o
-
-pfib.i: pfib.c.i
-
-.PHONY : pfib.i
-
-# target to preprocess a source file
-pfib.c.i:
-	$(MAKE) -f CMakeFiles/CS4204_P2_DC.dir/build.make CMakeFiles/CS4204_P2_DC.dir/pfib.c.i
-.PHONY : pfib.c.i
-
-pfib.s: pfib.c.s
-
-.PHONY : pfib.s
-
-# target to generate assembly for a file
-pfib.c.s:
-	$(MAKE) -f CMakeFiles/CS4204_P2_DC.dir/build.make CMakeFiles/CS4204_P2_DC.dir/pfib.c.s
-.PHONY : pfib.c.s
-
-qsort.o: qsort.c.o
-
-.PHONY : qsort.o
-
-# target to build an object file
-qsort.c.o:
-	$(MAKE) -f CMakeFiles/CS4204_P2_DC.dir/build.make CMakeFiles/CS4204_P2_DC.dir/qsort.c.o
-.PHONY : qsort.c.o
-
-qsort.i: qsort.c.i
-
-.PHONY : qsort.i
-
-# target to preprocess a source file
-qsort.c.i:
-	$(MAKE) -f CMakeFiles/CS4204_P2_DC.dir/build.make CMakeFiles/CS4204_P2_DC.dir/qsort.c.i
-.PHONY : qsort.c.i
-
-qsort.s: qsort.c.s
-
-.PHONY : qsort.s
-
-# target to generate assembly for a file
-qsort.c.s:
-	$(MAKE) -f CMakeFiles/CS4204_P2_DC.dir/build.make CMakeFiles/CS4204_P2_DC.dir/qsort.c.s
-.PHONY : qsort.c.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -294,24 +213,15 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... CS4204_P2_DC"
 	@echo "... edit_cache"
-	@echo "... DCSkeleton.o"
-	@echo "... DCSkeleton.i"
-	@echo "... DCSkeleton.s"
+	@echo "... FibSkeleton.o"
+	@echo "... FibSkeleton.i"
+	@echo "... FibSkeleton.s"
 	@echo "... Task.o"
 	@echo "... Task.i"
 	@echo "... Task.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... mergesort.o"
-	@echo "... mergesort.i"
-	@echo "... mergesort.s"
-	@echo "... pfib.o"
-	@echo "... pfib.i"
-	@echo "... pfib.s"
-	@echo "... qsort.o"
-	@echo "... qsort.i"
-	@echo "... qsort.s"
 .PHONY : help
 
 

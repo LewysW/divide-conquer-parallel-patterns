@@ -84,10 +84,13 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/DCSkeleton.cpp">
+		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/DCSkeleton.h">
 			<Option target="CS4204_P2_DC"/>
 		</Unit>
-		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/DCSkeleton.h">
+		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/FibSkeleton.cpp">
+			<Option target="CS4204_P2_DC"/>
+		</Unit>
+		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/FibSkeleton.h">
 			<Option target="CS4204_P2_DC"/>
 		</Unit>
 		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/Task.cpp">
@@ -99,13 +102,16 @@
 		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/main.cpp">
 			<Option target="CS4204_P2_DC"/>
 		</Unit>
-		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/mergesort.c">
+		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/mergesort.h">
 			<Option target="CS4204_P2_DC"/>
 		</Unit>
-		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/pfib.c">
+		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/pfib.h">
 			<Option target="CS4204_P2_DC"/>
 		</Unit>
-		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/qsort.c">
+		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/qsort.h">
+			<Option target="CS4204_P2_DC"/>
+		</Unit>
+		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/utility.h">
 			<Option target="CS4204_P2_DC"/>
 		</Unit>
 		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/CMakeLists.txt">

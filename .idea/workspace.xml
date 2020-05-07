@@ -12,7 +12,43 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6342a3c1-9868-427a-9282-17007d2edf91" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/FibSkeleton.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/FibSkeleton.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/mergesort.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pfib.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/qsort.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utility.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DCSkeleton.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DCSkeleton.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/DCSkeleton.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Task.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Task.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/CXX.includecache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/DependInfo.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/Task.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/Task.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/Worker.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/cmake_clean.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/cmake_clean.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/depend.internal" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/depend.internal" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/depend.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/flags.make" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/flags.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/link.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/link.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/main.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/mergesort.c.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/pfib.c.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/progress.make" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/progress.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/qsort.c.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/Makefile.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/Makefile2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/progress.marks" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/progress.marks" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CS4204_P2_DC" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CS4204_P2_DC" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CS4204_P2_DC.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CS4204_P2_DC.cbp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mergesort.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pfib.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/qsort.c" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -68,7 +104,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1588854789475</updated>
-      <workItem from="1588854792494" duration="4329000" />
+      <workItem from="1588854792494" duration="20360000" />
     </task>
     <servers />
   </component>
