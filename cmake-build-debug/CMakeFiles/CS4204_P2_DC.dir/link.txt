@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/CS4204_P2_DC.dir/main.cpp.o  -o CS4204_P2_DC 
