@@ -9,6 +9,7 @@ class MergeSortWorker : public Worker<List, List> {
 public:
 
     MergeSortWorker() : Worker(
+            //Divide
             [](const List& list) {
                 std::vector<List> lists;
                 //Calculates middle of list
@@ -23,6 +24,7 @@ public:
 
                 return lists;
             },
+            //Combine
             [](std::vector<List> results) {
                 int i, j, k;
                 int l = results.at(0).low;
@@ -83,9 +85,11 @@ public:
                 List list(arr, l, r);
                 return list;
             },
+            //Base
             [](const List& list) {
                 return list;
             },
+            //Threshold
             [](const List& list) {
                 return list.low >= list.high;
             }

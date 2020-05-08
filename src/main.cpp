@@ -2,6 +2,7 @@
 #include "FibWorker.h"
 #include "MergeSortWorker.h"
 #include "utility.h"
+#include "QuickSortWorker.h"
 
 int main() {
     int n;
@@ -12,13 +13,16 @@ int main() {
     std::cout << std::endl;
 
     int* arr = (int*) malloc(10 * sizeof(int));
+    int* arr2 = (int*) malloc(10 * sizeof(int));
     int l = 0;
     int r = 9;
     int num = 10;
     for (int i = 0; i < 10; i++) {
-        arr[i] = num--;
+        arr[i] = num * 5 % 12;
+        arr2[i] = num-- * 7 % 16;
     }
 
+    std::cout << "Merge Sort:" << std::endl;
     std::cout << "Unsorted list: ";
     printArray(arr, 10);
 
@@ -27,5 +31,18 @@ int main() {
 
     std::cout << "Sorted list: ";
     printArray(arr, 10);
+    std::cout << std::endl;
+
+
+    std::cout << "Quick Sort:" << std::endl;
+    std::cout << "Unsorted list: ";
+    printArray(arr2, 10);
+
+    QuickSortWorker quickSortWorker;
+    quickSortWorker.solve(List(arr2, l, r));
+
+    std::cout << "Sorted list: ";
+    printArray(arr2, 10);
+
     return 0;
 }

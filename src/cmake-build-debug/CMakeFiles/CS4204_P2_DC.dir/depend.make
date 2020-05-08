@@ -12,6 +12,7 @@ CMakeFiles/CS4204_P2_DC.dir/main.cpp.o: ../DCSkeleton.h
 CMakeFiles/CS4204_P2_DC.dir/main.cpp.o: ../FibWorker.h
 CMakeFiles/CS4204_P2_DC.dir/main.cpp.o: ../List.h
 CMakeFiles/CS4204_P2_DC.dir/main.cpp.o: ../MergeSortWorker.h
+CMakeFiles/CS4204_P2_DC.dir/main.cpp.o: ../QuickSortWorker.h
 CMakeFiles/CS4204_P2_DC.dir/main.cpp.o: ../Worker.h
 CMakeFiles/CS4204_P2_DC.dir/main.cpp.o: ../main.cpp
 CMakeFiles/CS4204_P2_DC.dir/main.cpp.o: ../utility.h

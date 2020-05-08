@@ -32,6 +32,12 @@ Worker.h
 List.h
 /home/lewys/Documents/CS4204/CS4204-P2-DC/src/List.h
 
+/home/lewys/Documents/CS4204/CS4204-P2-DC/src/QuickSortWorker.h
+Worker.h
+/home/lewys/Documents/CS4204/CS4204-P2-DC/src/Worker.h
+List.h
+/home/lewys/Documents/CS4204/CS4204-P2-DC/src/List.h
+
 /home/lewys/Documents/CS4204/CS4204-P2-DC/src/Worker.h
 DCSkeleton.h
 /home/lewys/Documents/CS4204/CS4204-P2-DC/src/DCSkeleton.h
@@ -45,6 +51,8 @@ MergeSortWorker.h
 /home/lewys/Documents/CS4204/CS4204-P2-DC/src/MergeSortWorker.h
 utility.h
 /home/lewys/Documents/CS4204/CS4204-P2-DC/src/utility.h
+QuickSortWorker.h
+/home/lewys/Documents/CS4204/CS4204-P2-DC/src/QuickSortWorker.h
 
 /home/lewys/Documents/CS4204/CS4204-P2-DC/src/utility.h
 cstdio
