@@ -21,7 +21,7 @@ ResultType Worker<ProblemType, ResultType>::solve(ProblemType p) {
         ps = this->divide(p);
         std::vector<ProblemType> res(ps.size());
         for (int i = 0; i < ps.size(); i++) {
-            res[i] = solve(ps[i]);
+            res.insert(res.begin() + i, solve(ps[i]));
         }
         return this->combine(res);
     }

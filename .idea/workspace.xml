@@ -12,14 +12,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6342a3c1-9868-427a-9282-17007d2edf91" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/FibWorker.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Worker.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Worker.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/List.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/MergeSortWorker.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/QuickSortWorker.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DCSkeleton.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/DCSkeleton.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FibSkeleton.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FibSkeleton.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/FibWorker.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FibWorker.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FibWorker.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/FibWorker.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Worker.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Worker.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/CXX.includecache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/DependInfo.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/build.make" afterDir="false" />
@@ -29,14 +29,15 @@
       <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/link.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/link.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/main.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/progress.make" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/progress.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/Makefile.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/Makefile2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/progress.marks" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/progress.marks" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CS4204_P2_DC" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CS4204_P2_DC" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CS4204_P2_DC.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CS4204_P2_DC.cbp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mergesort.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pfib.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/qsort.h" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -93,7 +94,7 @@
       <option name="presentableId" value="Default" />
       <updated>1588854789475</updated>
       <workItem from="1588854792494" duration="20514000" />
-      <workItem from="1588942859595" duration="6062000" />
+      <workItem from="1588942859595" duration="15684000" />
     </task>
     <task id="LOCAL-00001" summary="Implemented divide and conquer pattern presented in paper. Need to implement patterns for quicksort and merge sort. Then need to parallelise solve function of each skeleton to make use of pthreads to run on multiple cores.">
       <created>1588884458990</created>
@@ -102,7 +103,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588884458990</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Moved solve function into a new Worker subclass of DCSkeleton and made it generic. Need to add work stealing and parallel threads into solve function now, as well as task data structures of Worker.&quot;">
+      <created>1588950602897</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1588950602897</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -123,6 +131,18 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Implemented divide and conquer pattern presented in paper. Need to implement patterns for quicksort and merge sort. Then need to parallelise solve function of each skeleton to make use of pthreads to run on multiple cores." />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented divide and conquer pattern presented in paper. Need to implement patterns for quicksort and merge sort. Then need to parallelise solve function of each skeleton to make use of pthreads to run on multiple cores." />
+    <MESSAGE value="Moved solve function into a new Worker subclass of DCSkeleton and made it generic. Need to add work stealing and parallel threads into solve function now, as well as task data structures of Worker.&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Moved solve function into a new Worker subclass of DCSkeleton and made it generic. Need to add work stealing and parallel threads into solve function now, as well as task data structures of Worker.&quot;" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/MergeSortWorker.h</url>
+          <line>20</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -10,7 +10,7 @@ public:
      * Initialises the following functions of the divide and conquer skeleton:
      * divide, combine, base, and threshold
      */
-    FibWorker() : Worker<int, int>(
+    FibWorker() : Worker(
             [](const int& p) {
                 std::vector<int> children;
                 children.push_back(p - 1);
@@ -26,9 +26,7 @@ public:
             [](const int& p) {
                 return p < 2;
             }
-    ) {
-
-    }
+    ) {}
 };
 
 

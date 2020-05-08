@@ -123,33 +123,6 @@ CS4204_P2_DC/fast:
 	$(MAKE) -f CMakeFiles/CS4204_P2_DC.dir/build.make CMakeFiles/CS4204_P2_DC.dir/build
 .PHONY : CS4204_P2_DC/fast
 
-FibWorker.o: FibWorker.cpp.o
-
-.PHONY : FibWorker.o
-
-# target to build an object file
-FibWorker.cpp.o:
-	$(MAKE) -f CMakeFiles/CS4204_P2_DC.dir/build.make CMakeFiles/CS4204_P2_DC.dir/FibWorker.cpp.o
-.PHONY : FibWorker.cpp.o
-
-FibWorker.i: FibWorker.cpp.i
-
-.PHONY : FibWorker.i
-
-# target to preprocess a source file
-FibWorker.cpp.i:
-	$(MAKE) -f CMakeFiles/CS4204_P2_DC.dir/build.make CMakeFiles/CS4204_P2_DC.dir/FibWorker.cpp.i
-.PHONY : FibWorker.cpp.i
-
-FibWorker.s: FibWorker.cpp.s
-
-.PHONY : FibWorker.s
-
-# target to generate assembly for a file
-FibWorker.cpp.s:
-	$(MAKE) -f CMakeFiles/CS4204_P2_DC.dir/build.make CMakeFiles/CS4204_P2_DC.dir/FibWorker.cpp.s
-.PHONY : FibWorker.cpp.s
-
 Task.o: Task.cpp.o
 
 .PHONY : Task.o
@@ -240,9 +213,6 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... CS4204_P2_DC"
 	@echo "... edit_cache"
-	@echo "... FibWorker.o"
-	@echo "... FibWorker.i"
-	@echo "... FibWorker.s"
 	@echo "... Task.o"
 	@echo "... Task.i"
 	@echo "... Task.s"

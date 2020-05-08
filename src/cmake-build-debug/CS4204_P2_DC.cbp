@@ -87,10 +87,16 @@
 		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/DCSkeleton.h">
 			<Option target="CS4204_P2_DC"/>
 		</Unit>
-		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/FibWorker.cpp">
+		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/FibWorker.h">
 			<Option target="CS4204_P2_DC"/>
 		</Unit>
-		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/FibWorker.h">
+		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/List.h">
+			<Option target="CS4204_P2_DC"/>
+		</Unit>
+		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/MergeSortWorker.h">
+			<Option target="CS4204_P2_DC"/>
+		</Unit>
+		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/QuickSortWorker.h">
 			<Option target="CS4204_P2_DC"/>
 		</Unit>
 		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/Task.cpp">
@@ -106,15 +112,6 @@
 			<Option target="CS4204_P2_DC"/>
 		</Unit>
 		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/main.cpp">
-			<Option target="CS4204_P2_DC"/>
-		</Unit>
-		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/mergesort.h">
-			<Option target="CS4204_P2_DC"/>
-		</Unit>
-		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/pfib.h">
-			<Option target="CS4204_P2_DC"/>
-		</Unit>
-		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/qsort.h">
 			<Option target="CS4204_P2_DC"/>
 		</Unit>
 		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/utility.h">
