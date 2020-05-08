@@ -87,16 +87,22 @@
 		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/DCSkeleton.h">
 			<Option target="CS4204_P2_DC"/>
 		</Unit>
-		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/FibSkeleton.cpp">
+		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/FibWorker.cpp">
 			<Option target="CS4204_P2_DC"/>
 		</Unit>
-		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/FibSkeleton.h">
+		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/FibWorker.h">
 			<Option target="CS4204_P2_DC"/>
 		</Unit>
 		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/Task.cpp">
 			<Option target="CS4204_P2_DC"/>
 		</Unit>
 		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/Task.h">
+			<Option target="CS4204_P2_DC"/>
+		</Unit>
+		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/Worker.cpp">
+			<Option target="CS4204_P2_DC"/>
+		</Unit>
+		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/Worker.h">
 			<Option target="CS4204_P2_DC"/>
 		</Unit>
 		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/main.cpp">

@@ -12,19 +12,25 @@ functional
 utility
 -
 
-/home/lewys/Documents/CS4204/CS4204-P2-DC/src/FibSkeleton.cpp
-iostream
--
-FibSkeleton.h
-/home/lewys/Documents/CS4204/CS4204-P2-DC/src/FibSkeleton.h
+/home/lewys/Documents/CS4204/CS4204-P2-DC/src/FibWorker.cpp
+FibWorker.h
+/home/lewys/Documents/CS4204/CS4204-P2-DC/src/FibWorker.h
 
-/home/lewys/Documents/CS4204/CS4204-P2-DC/src/FibSkeleton.h
+/home/lewys/Documents/CS4204/CS4204-P2-DC/src/FibWorker.h
+Worker.h
+/home/lewys/Documents/CS4204/CS4204-P2-DC/src/Worker.h
+
+/home/lewys/Documents/CS4204/CS4204-P2-DC/src/Worker.cpp
+Worker.h
+/home/lewys/Documents/CS4204/CS4204-P2-DC/src/Worker.h
+
+/home/lewys/Documents/CS4204/CS4204-P2-DC/src/Worker.h
 DCSkeleton.h
 /home/lewys/Documents/CS4204/CS4204-P2-DC/src/DCSkeleton.h
 
 /home/lewys/Documents/CS4204/CS4204-P2-DC/src/main.cpp
 iostream
 -
-FibSkeleton.h
-/home/lewys/Documents/CS4204/CS4204-P2-DC/src/FibSkeleton.h
+FibWorker.h
+/home/lewys/Documents/CS4204/CS4204-P2-DC/src/FibWorker.h
 

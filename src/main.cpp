@@ -1,11 +1,11 @@
 #include <iostream>
-#include "FibSkeleton.h"
+#include "FibWorker.h"
 
 int main() {
     int n;
     std::cout << "Please enter an integer value: ";
     std::cin >> n;
-    FibSkeleton fibSkeleton;
-    std::cout << "Fib(" << n << ") = " << fibSkeleton.solve(n) << std::endl;
+    FibWorker fibWorker;
+    std::cout << "Fib(" << n << ") = " << fibWorker.solve(n) << std::endl;
     return 0;
 }

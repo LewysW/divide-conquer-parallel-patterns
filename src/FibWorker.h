@@ -1,17 +1,16 @@
-#ifndef CS4204_P2_DC_FIBSKELETON_H
-#define CS4204_P2_DC_FIBSKELETON_H
+#ifndef CS4204_P2_DC_FIBWORKER_H
+#define CS4204_P2_DC_FIBWORKER_H
 
+#include "Worker.h"
 
-#include "DCSkeleton.h"
-
-class FibSkeleton : public DCSkeleton<int, int> {
+class FibWorker : public Worker<int, int> {
 public:
     /**
      * Constructor for FibSkeleton
      * Initialises the following functions of the divide and conquer skeleton:
      * divide, combine, base, and threshold
      */
-    FibSkeleton() : DCSkeleton<int, int>(
+    FibWorker() : Worker<int, int>(
             [](const int& p) {
                 std::vector<int> children;
                 children.push_back(p - 1);
@@ -30,9 +29,7 @@ public:
     ) {
 
     }
-
-    int solve(int n) override;
 };
 
 
-#endif //CS4204_P2_DC_FIBSKELETON_H
+#endif //CS4204_P2_DC_FIBWORKER_H

@@ -4,8 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/lewys/Documents/CS4204/CS4204-P2-DC/src/FibSkeleton.cpp" "/home/lewys/Documents/CS4204/CS4204-P2-DC/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/FibSkeleton.cpp.o"
+  "/home/lewys/Documents/CS4204/CS4204-P2-DC/src/FibWorker.cpp" "/home/lewys/Documents/CS4204/CS4204-P2-DC/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/FibWorker.cpp.o"
   "/home/lewys/Documents/CS4204/CS4204-P2-DC/src/Task.cpp" "/home/lewys/Documents/CS4204/CS4204-P2-DC/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/Task.cpp.o"
+  "/home/lewys/Documents/CS4204/CS4204-P2-DC/src/Worker.cpp" "/home/lewys/Documents/CS4204/CS4204-P2-DC/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/Worker.cpp.o"
   "/home/lewys/Documents/CS4204/CS4204-P2-DC/src/main.cpp" "/home/lewys/Documents/CS4204/CS4204-P2-DC/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

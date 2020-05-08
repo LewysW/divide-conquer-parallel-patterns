@@ -123,32 +123,32 @@ CS4204_P2_DC/fast:
 	$(MAKE) -f CMakeFiles/CS4204_P2_DC.dir/build.make CMakeFiles/CS4204_P2_DC.dir/build
 .PHONY : CS4204_P2_DC/fast
 
-FibSkeleton.o: FibSkeleton.cpp.o
+FibWorker.o: FibWorker.cpp.o
 
-.PHONY : FibSkeleton.o
+.PHONY : FibWorker.o
 
 # target to build an object file
-FibSkeleton.cpp.o:
-	$(MAKE) -f CMakeFiles/CS4204_P2_DC.dir/build.make CMakeFiles/CS4204_P2_DC.dir/FibSkeleton.cpp.o
-.PHONY : FibSkeleton.cpp.o
+FibWorker.cpp.o:
+	$(MAKE) -f CMakeFiles/CS4204_P2_DC.dir/build.make CMakeFiles/CS4204_P2_DC.dir/FibWorker.cpp.o
+.PHONY : FibWorker.cpp.o
 
-FibSkeleton.i: FibSkeleton.cpp.i
+FibWorker.i: FibWorker.cpp.i
 
-.PHONY : FibSkeleton.i
+.PHONY : FibWorker.i
 
 # target to preprocess a source file
-FibSkeleton.cpp.i:
-	$(MAKE) -f CMakeFiles/CS4204_P2_DC.dir/build.make CMakeFiles/CS4204_P2_DC.dir/FibSkeleton.cpp.i
-.PHONY : FibSkeleton.cpp.i
+FibWorker.cpp.i:
+	$(MAKE) -f CMakeFiles/CS4204_P2_DC.dir/build.make CMakeFiles/CS4204_P2_DC.dir/FibWorker.cpp.i
+.PHONY : FibWorker.cpp.i
 
-FibSkeleton.s: FibSkeleton.cpp.s
+FibWorker.s: FibWorker.cpp.s
 
-.PHONY : FibSkeleton.s
+.PHONY : FibWorker.s
 
 # target to generate assembly for a file
-FibSkeleton.cpp.s:
-	$(MAKE) -f CMakeFiles/CS4204_P2_DC.dir/build.make CMakeFiles/CS4204_P2_DC.dir/FibSkeleton.cpp.s
-.PHONY : FibSkeleton.cpp.s
+FibWorker.cpp.s:
+	$(MAKE) -f CMakeFiles/CS4204_P2_DC.dir/build.make CMakeFiles/CS4204_P2_DC.dir/FibWorker.cpp.s
+.PHONY : FibWorker.cpp.s
 
 Task.o: Task.cpp.o
 
@@ -176,6 +176,33 @@ Task.s: Task.cpp.s
 Task.cpp.s:
 	$(MAKE) -f CMakeFiles/CS4204_P2_DC.dir/build.make CMakeFiles/CS4204_P2_DC.dir/Task.cpp.s
 .PHONY : Task.cpp.s
+
+Worker.o: Worker.cpp.o
+
+.PHONY : Worker.o
+
+# target to build an object file
+Worker.cpp.o:
+	$(MAKE) -f CMakeFiles/CS4204_P2_DC.dir/build.make CMakeFiles/CS4204_P2_DC.dir/Worker.cpp.o
+.PHONY : Worker.cpp.o
+
+Worker.i: Worker.cpp.i
+
+.PHONY : Worker.i
+
+# target to preprocess a source file
+Worker.cpp.i:
+	$(MAKE) -f CMakeFiles/CS4204_P2_DC.dir/build.make CMakeFiles/CS4204_P2_DC.dir/Worker.cpp.i
+.PHONY : Worker.cpp.i
+
+Worker.s: Worker.cpp.s
+
+.PHONY : Worker.s
+
+# target to generate assembly for a file
+Worker.cpp.s:
+	$(MAKE) -f CMakeFiles/CS4204_P2_DC.dir/build.make CMakeFiles/CS4204_P2_DC.dir/Worker.cpp.s
+.PHONY : Worker.cpp.s
 
 main.o: main.cpp.o
 
@@ -213,12 +240,15 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... CS4204_P2_DC"
 	@echo "... edit_cache"
-	@echo "... FibSkeleton.o"
-	@echo "... FibSkeleton.i"
-	@echo "... FibSkeleton.s"
+	@echo "... FibWorker.o"
+	@echo "... FibWorker.i"
+	@echo "... FibWorker.s"
 	@echo "... Task.o"
 	@echo "... Task.i"
 	@echo "... Task.s"
+	@echo "... Worker.o"
+	@echo "... Worker.i"
+	@echo "... Worker.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
