@@ -5,6 +5,7 @@
 #include "QuickSortWorker.h"
 
 int main() {
+    //Solves fibonacci(n)
     int n;
     std::cout << "Please enter an integer value: ";
     std::cin >> n;
@@ -22,6 +23,7 @@ int main() {
         arr2[i] = num-- * 7 % 16;
     }
 
+    //Sorts a list using merge sort
     std::cout << "Merge Sort:" << std::endl;
     std::cout << "Unsorted list: ";
     printArray(arr, 10);
@@ -33,7 +35,7 @@ int main() {
     printArray(arr, 10);
     std::cout << std::endl;
 
-
+    //Sorts a list using quicksort
     std::cout << "Quick Sort:" << std::endl;
     std::cout << "Unsorted list: ";
     printArray(arr2, 10);

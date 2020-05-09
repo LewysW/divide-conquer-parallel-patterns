@@ -6,6 +6,7 @@ CMakeFiles/CS4204_P2_DC.dir/Task.cpp.o
  /home/lewys/Documents/CS4204/CS4204-P2-DC/src/Task.h
 CMakeFiles/CS4204_P2_DC.dir/Worker.cpp.o
  /home/lewys/Documents/CS4204/CS4204-P2-DC/src/DCSkeleton.h
+ /home/lewys/Documents/CS4204/CS4204-P2-DC/src/Task.h
  /home/lewys/Documents/CS4204/CS4204-P2-DC/src/Worker.cpp
  /home/lewys/Documents/CS4204/CS4204-P2-DC/src/Worker.h
 CMakeFiles/CS4204_P2_DC.dir/main.cpp.o
@@ -14,6 +15,7 @@ CMakeFiles/CS4204_P2_DC.dir/main.cpp.o
  /home/lewys/Documents/CS4204/CS4204-P2-DC/src/List.h
  /home/lewys/Documents/CS4204/CS4204-P2-DC/src/MergeSortWorker.h
  /home/lewys/Documents/CS4204/CS4204-P2-DC/src/QuickSortWorker.h
+ /home/lewys/Documents/CS4204/CS4204-P2-DC/src/Task.h
  /home/lewys/Documents/CS4204/CS4204-P2-DC/src/Worker.h
  /home/lewys/Documents/CS4204/CS4204-P2-DC/src/main.cpp
  /home/lewys/Documents/CS4204/CS4204-P2-DC/src/utility.h
