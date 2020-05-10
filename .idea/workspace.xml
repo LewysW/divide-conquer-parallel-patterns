@@ -75,7 +75,7 @@
       <workItem from="1588854792494" duration="20514000" />
       <workItem from="1588942859595" duration="21060000" />
       <workItem from="1589025572046" duration="35265000" />
-      <workItem from="1589107654001" duration="1388000" />
+      <workItem from="1589107654001" duration="4318000" />
     </task>
     <task id="LOCAL-00001" summary="Implemented divide and conquer pattern presented in paper. Need to implement patterns for quicksort and merge sort. Then need to parallelise solve function of each skeleton to make use of pthreads to run on multiple cores.">
       <created>1588884458990</created>
@@ -119,7 +119,14 @@
       <option name="project" value="LOCAL" />
       <updated>1589074964052</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Fixed incorrect calculation when determining how many new threads to create.">
+      <created>1589109063275</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1589109063275</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -145,6 +152,7 @@
     <MESSAGE value="Decomposed quicksort algorithm into a divide and conquer pattern." />
     <MESSAGE value="Added the ability to detect the number of CPU cores on the machine" />
     <MESSAGE value="Code does not work correctly with smart pointers and multiple threads. Need to debug segmentation fault and add load balancing/work stealing." />
-    <option name="LAST_COMMIT_MESSAGE" value="Code does not work correctly with smart pointers and multiple threads. Need to debug segmentation fault and add load balancing/work stealing." />
+    <MESSAGE value="Fixed incorrect calculation when determining how many new threads to create." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed incorrect calculation when determining how many new threads to create." />
   </component>
 </project>

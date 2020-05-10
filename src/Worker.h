@@ -44,7 +44,7 @@ public:
     std::thread thread;
 
     //Allows us to get the return value of thread if this was run using a std::thread
-    std::future<ResultType> solution;
+    ResultType result;
 
     Worker<ProblemType, ResultType>(const std::function<std::vector<ProblemType>(const ProblemType &)> &divide,
            const std::function<ResultType(std::vector<ResultType>)> &combine,
@@ -54,6 +54,8 @@ public:
                                                     numActiveThreads(numActiveThreads) {}
 
     ResultType solve(ProblemType p);
+
+    void solveWrapper(ProblemType p, ResultType& res);
 
     int numThreadsToCreate();
 
@@ -90,14 +92,10 @@ ResultType Worker<ProblemType, ResultType>::solve(ProblemType p) {
             //TODO - maybe also just name functions e.g. putTaskOnInputQueue so it reads better
             std::shared_ptr<Task<ProblemType, ResultType>> taskPtr =std::make_shared<Task<ProblemType, ResultType>>(Task<ProblemType, ResultType>(ps[i]));
             putTask(taskPtr);
-        }
-        std::cout << std::endl << "Size of inputQueue: " << inputQueue.size() << std::endl;
+        };
         //Determine number of threads to run
         unsigned int threadsToCreate = numThreadsToCreate();
-        std::cout << "tid:" << std::hash<std::thread::id>{}(std::this_thread::get_id()) << std::endl;
-        std::cout << "Active threads before: " << numActiveThreads << std::endl;
         numActiveThreads += threadsToCreate;
-        std::cout << "Active threads after: " << numActiveThreads << std::endl;
 
         //Assign tasks from input queue to new threads
         while (children.size() < threadsToCreate) {
@@ -109,8 +107,7 @@ ResultType Worker<ProblemType, ResultType>::solve(ProblemType p) {
         while (!children.empty()) {
             //Join thread and get result of computation
             children.front()->thread.join();
-            ProblemType problemType;
-            ResultType result = children.front()->solution.get();
+            ResultType result = children.front()->result;
 
             //Decrease number of active threads
             numActiveThreads--;
@@ -156,9 +153,6 @@ template<typename ProblemType, typename ResultType>
 int Worker<ProblemType, ResultType>::numThreadsToCreate() {
     std::lock_guard<std::mutex> lockGuard(queueMutex);
     int freeCPUs = numCPUs - numActiveThreads;
-    std::cout << "Num CPUs: " << numCPUs << std::endl;
-    std::cout << "numActiveThreads: " << numActiveThreads << std::endl;
-    std::cout << "Free CPUs: " << freeCPUs << std::endl;
 
     //If size of task pool is greater than or equal to the number of free CPUS
     if (inputQueue.size() >= freeCPUs) {
@@ -182,10 +176,14 @@ std::shared_ptr<Worker<ProblemType, ResultType>> Worker<ProblemType, ResultType>
     std::shared_ptr<Worker<ProblemType, ResultType>> ptr =
             std::make_shared<Worker<ProblemType, ResultType>>(this->divide, this->combine, this->base, this->threshold, numActiveThreads);
     ptr->parent = this;
-    std::promise<ResultType> promise;
-    ptr->thread = std::thread(&Worker::solve, ptr, p);
-    ptr->solution = promise.get_future();
+
+    ptr->thread = std::thread(&Worker::solveWrapper, ptr, p, std::ref(ptr->result));
     return ptr;
+}
+
+template<typename ProblemType, typename ResultType>
+void Worker<ProblemType, ResultType>::solveWrapper(ProblemType p, ResultType& res) {
+    res = Worker::solve(p);
 }
 
 /**
