@@ -75,7 +75,7 @@
       <workItem from="1588854792494" duration="20514000" />
       <workItem from="1588942859595" duration="21060000" />
       <workItem from="1589025572046" duration="35265000" />
-      <workItem from="1589107654001" duration="4318000" />
+      <workItem from="1589107654001" duration="5755000" />
     </task>
     <task id="LOCAL-00001" summary="Implemented divide and conquer pattern presented in paper. Need to implement patterns for quicksort and merge sort. Then need to parallelise solve function of each skeleton to make use of pthreads to run on multiple cores.">
       <created>1588884458990</created>
@@ -126,7 +126,14 @@
       <option name="project" value="LOCAL" />
       <updated>1589109063275</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Thread creation seems correct, just seems to be deadlocking now for fib(5)">
+      <created>1589111995259</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1589111995259</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -153,6 +160,7 @@
     <MESSAGE value="Added the ability to detect the number of CPU cores on the machine" />
     <MESSAGE value="Code does not work correctly with smart pointers and multiple threads. Need to debug segmentation fault and add load balancing/work stealing." />
     <MESSAGE value="Fixed incorrect calculation when determining how many new threads to create." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed incorrect calculation when determining how many new threads to create." />
+    <MESSAGE value="Thread creation seems correct, just seems to be deadlocking now for fib(5)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Thread creation seems correct, just seems to be deadlocking now for fib(5)" />
   </component>
 </project>

@@ -55,24 +55,35 @@ public:
 
     ResultType solve(ProblemType p);
 
-    void solveWrapper(ProblemType p, ResultType& res);
-
     int numThreadsToCreate();
 
     std::shared_ptr<Worker<ProblemType, ResultType>> createWorker(ProblemType p);
 
-    void putTask(std::shared_ptr<Task<ProblemType, ResultType>> t);
+    void putTaskInputQueue(std::shared_ptr<Task<ProblemType, ResultType>> t);
 
-    std::shared_ptr<Task<ProblemType, ResultType>> getTask();
+    std::shared_ptr<Task<ProblemType, ResultType>> getTaskInputQueue();
 
-    void putResult(ResultType result);
+    void putResultOutputQueue(ResultType result);
 
-    ResultType getResult();
+    ResultType getResultOutputQueue();
 
     unsigned int getSize(std::queue<std::shared_ptr<Task<ProblemType, ResultType>>> queue);
 };
 
+//TODO - move implementation to cpp file
+
 //TODO - put code in functions
+
+//TODO - clean up overall function to be similar to:
+/**
+ * if (threshold)
+ *  return base
+ * else
+ *  if (threadsToCreate > 0)
+ *      farm(threads)
+ *
+ *  solveRemainingProblem()
+ */
 template<typename ProblemType, typename ResultType>
 ResultType Worker<ProblemType, ResultType>::solve(ProblemType p) {
     std::cout << "Problem: " << p << std::endl;
@@ -87,11 +98,8 @@ ResultType Worker<ProblemType, ResultType>::solve(ProblemType p) {
 
         //Adds tasks to input queue
         for (int i = 0; i < ps.size(); i++) {
-            //TODO - simplify by passing task to putTask as parameter and making shared_ptr inside function
-            //TODO - perhaps get rid of functions entirely and have code for queues in this function
-            //TODO - maybe also just name functions e.g. putTaskOnInputQueue so it reads better
-            std::shared_ptr<Task<ProblemType, ResultType>> taskPtr =std::make_shared<Task<ProblemType, ResultType>>(Task<ProblemType, ResultType>(ps[i]));
-            putTask(taskPtr);
+            std::shared_ptr<Task<ProblemType, ResultType>> taskPtr = std::make_shared<Task<ProblemType, ResultType>>(Task<ProblemType, ResultType>(ps[i]));
+            putTaskInputQueue(taskPtr);
         };
         //Determine number of threads to run
         unsigned int threadsToCreate = numThreadsToCreate();
@@ -99,7 +107,7 @@ ResultType Worker<ProblemType, ResultType>::solve(ProblemType p) {
 
         //Assign tasks from input queue to new threads
         while (children.size() < threadsToCreate) {
-            std::shared_ptr<Task<ProblemType, ResultType>> task = getTask();
+            std::shared_ptr<Task<ProblemType, ResultType>> task = getTaskInputQueue();
             children.push_back(createWorker(task->getProblem()));
         }
 
@@ -113,7 +121,7 @@ ResultType Worker<ProblemType, ResultType>::solve(ProblemType p) {
             numActiveThreads--;
 
             //Store task on output queue
-            putResult(result);
+            putResultOutputQueue(result);
 
             //Remove worker from list of children
             children.erase(children.begin());
@@ -121,7 +129,7 @@ ResultType Worker<ProblemType, ResultType>::solve(ProblemType p) {
 
         //Solve remaining tasks in inputQueue
         while (!inputQueue.empty()) {
-            putResult(solve(getTask()->getProblem()));
+            putResultOutputQueue(solve(getTaskInputQueue()->getProblem()));
         }
 
         //Lock task mutex
@@ -137,7 +145,7 @@ ResultType Worker<ProblemType, ResultType>::solve(ProblemType p) {
 
         //Get results from output queue
         while (!outputQueue.empty()) {
-            res.push_back(getResult());
+            res.push_back(getResultOutputQueue());
         }
 
         //Combine the results
@@ -173,17 +181,13 @@ int Worker<ProblemType, ResultType>::numThreadsToCreate() {
  */
 template<typename ProblemType, typename ResultType>
 std::shared_ptr<Worker<ProblemType, ResultType>> Worker<ProblemType, ResultType>::createWorker(ProblemType p) {
-    std::shared_ptr<Worker<ProblemType, ResultType>> ptr =
+    std::shared_ptr<Worker<ProblemType, ResultType>> worker =
             std::make_shared<Worker<ProblemType, ResultType>>(this->divide, this->combine, this->base, this->threshold, numActiveThreads);
-    ptr->parent = this;
+    worker->parent = this;
 
-    ptr->thread = std::thread(&Worker::solveWrapper, ptr, p, std::ref(ptr->result));
-    return ptr;
-}
-
-template<typename ProblemType, typename ResultType>
-void Worker<ProblemType, ResultType>::solveWrapper(ProblemType p, ResultType& res) {
-    res = Worker::solve(p);
+    //Run thread on ptr->solve and store result in ptr->result
+    worker->thread = std::thread([=]{worker->result = worker->solve(p);});
+    return worker;
 }
 
 /**
@@ -194,7 +198,7 @@ void Worker<ProblemType, ResultType>::solveWrapper(ProblemType p, ResultType& re
  * @param t - task to enqueue
  */
 template<typename ProblemType, typename ResultType>
-void Worker<ProblemType, ResultType>::putTask(std::shared_ptr<Task<ProblemType, ResultType>> t) {
+void Worker<ProblemType, ResultType>::putTaskInputQueue(std::shared_ptr<Task<ProblemType, ResultType>> t) {
     std::lock_guard<std::mutex> lockGuard(queueMutex);
     inputQueue.push(t);
 }
@@ -207,7 +211,7 @@ void Worker<ProblemType, ResultType>::putTask(std::shared_ptr<Task<ProblemType, 
  * @return task from queue
  */
 template<typename ProblemType, typename ResultType>
-std::shared_ptr<Task<ProblemType, ResultType>> Worker<ProblemType, ResultType>::getTask() {
+std::shared_ptr<Task<ProblemType, ResultType>> Worker<ProblemType, ResultType>::getTaskInputQueue() {
     std::lock_guard<std::mutex> lockGuard(queueMutex);
     std::shared_ptr<Task<ProblemType, ResultType>> t = inputQueue.front();
     inputQueue.pop();
@@ -228,13 +232,13 @@ unsigned int Worker<ProblemType, ResultType>::getSize(std::queue<std::shared_ptr
 }
 
 template<typename ProblemType, typename ResultType>
-void Worker<ProblemType, ResultType>::putResult(ResultType result) {
+void Worker<ProblemType, ResultType>::putResultOutputQueue(ResultType result) {
     std::lock_guard<std::mutex> lockGuard(queueMutex);
     outputQueue.push(result);
 }
 
 template<typename ProblemType, typename ResultType>
-ResultType Worker<ProblemType, ResultType>::getResult() {
+ResultType Worker<ProblemType, ResultType>::getResultOutputQueue() {
     std::lock_guard<std::mutex> lockGuard(queueMutex);
     ResultType result = outputQueue.front();
     outputQueue.pop();
