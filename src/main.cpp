@@ -11,6 +11,8 @@ int main() {
     std::cin >> n;
     FibWorker fibWorker;
     std::cout << "Fib(" << n << ") = " << fibWorker.solve(n) << std::endl;
+    int x = fibWorker.solve(n);
+    std::cout << "x: " << x << std::endl;
     std::cout << std::endl;
 
 //    int* arr = (int*) malloc(10 * sizeof(int));

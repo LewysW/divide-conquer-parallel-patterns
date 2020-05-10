@@ -57,7 +57,7 @@ public:
 
     int numThreadsToCreate();
 
-    std::shared_ptr<Worker<ProblemType, ResultType>> createWorker(ProblemType p);
+    std::shared_ptr<Worker<ProblemType, ResultType>> createWorker(ProblemType p, bool newThread);
 
     void putTaskInputQueue(std::shared_ptr<Task<ProblemType, ResultType>> t);
 
@@ -100,46 +100,57 @@ ResultType Worker<ProblemType, ResultType>::solve(ProblemType p) {
         for (int i = 0; i < ps.size(); i++) {
             std::shared_ptr<Task<ProblemType, ResultType>> taskPtr = std::make_shared<Task<ProblemType, ResultType>>(Task<ProblemType, ResultType>(ps[i]));
             putTaskInputQueue(taskPtr);
-        };
+        }
         //Determine number of threads to run
         unsigned int threadsToCreate = numThreadsToCreate();
         numActiveThreads += threadsToCreate;
 
-        //Assign tasks from input queue to new threads
-        while (children.size() < threadsToCreate) {
-            std::shared_ptr<Task<ProblemType, ResultType>> task = getTaskInputQueue();
-            children.push_back(createWorker(task->getProblem()));
-        }
+//        std::cout << std::endl;
+//        std::cout << "Size of inputQueue before farming threads: " << inputQueue.size() << std::endl;
+//        //Assign tasks from input queue to new threads
+//        while (children.size() < threadsToCreate) {
+//            std::shared_ptr<Task<ProblemType, ResultType>> task = getTaskInputQueue();
+//            children.push_back(createWorker(task->getProblem()));
+//        }
+//        std::cout << "Size of inputQueue after farming threads: " << inputQueue.size() << std::endl;
+//
+//        std::cout << "Number of threads created: " << children.size() << std::endl;
+//        std::cout << std::endl;
+//
+//        //Gather results of thread computation
+//        while (!children.empty()) {
+//            //Join thread and get result of computation
+//            children.front()->thread.join();
+//            ResultType solveRes = children.front()->result;
+//
+//            //Decrease number of active threads
+//            numActiveThreads--;
+//
+//            //Store task on output queue
+//            putResultOutputQueue(solveRes);
+//
+//            //Remove worker from list of children
+//            children.erase(children.begin());
+//        }
 
-        //Gather results of thread computation
-        while (!children.empty()) {
-            //Join thread and get result of computation
-            children.front()->thread.join();
-            ResultType result = children.front()->result;
 
-            //Decrease number of active threads
-            numActiveThreads--;
-
-            //Store task on output queue
-            putResultOutputQueue(result);
-
-            //Remove worker from list of children
-            children.erase(children.begin());
-        }
-
+        //Run thread on ptr->solve and store result in ptr->result
+        //TODO - change way output queue size is calculated so that program may terminate
         //Solve remaining tasks in inputQueue
         while (!inputQueue.empty()) {
-            putResultOutputQueue(solve(getTaskInputQueue()->getProblem()));
+            ResultType solution = createWorker(getTaskInputQueue()->getProblem(), false)->result;
+            putResultOutputQueue(solution);
         }
-
-        //Lock task mutex
-        std::unique_lock lock(taskMutex);
-
-        //Execution halts until outputQueue is the size of the problem set ps
-        //i.e. every problem in the problem set has produced a result
-        while (outputQueue.size() != ps.size()) {
-            conditionVariable.wait(lock);
-        }
+//        //Lock task mutex
+//        std::unique_lock lock(taskMutex);
+//
+//        //Execution halts until outputQueue is the size of the problem set ps
+//        //i.e. every problem in the problem set has produced a result
+//        while (outputQueue.size() != ps.size()) {
+//            std::cout << "outputQueue size: " << outputQueue.size() << std::endl;
+//            std::cout << "ps size: " << ps.size() << std::endl;
+//            conditionVariable.wait(lock);
+//        }
 
         std::vector<ResultType> res;
 
@@ -180,13 +191,21 @@ int Worker<ProblemType, ResultType>::numThreadsToCreate() {
  * @param p - problem to solve
  */
 template<typename ProblemType, typename ResultType>
-std::shared_ptr<Worker<ProblemType, ResultType>> Worker<ProblemType, ResultType>::createWorker(ProblemType p) {
+std::shared_ptr<Worker<ProblemType, ResultType>> Worker<ProblemType, ResultType>::createWorker(ProblemType p, bool newThread) {
     std::shared_ptr<Worker<ProblemType, ResultType>> worker =
             std::make_shared<Worker<ProblemType, ResultType>>(this->divide, this->combine, this->base, this->threshold, numActiveThreads);
     worker->parent = this;
 
-    //Run thread on ptr->solve and store result in ptr->result
-    worker->thread = std::thread([=]{worker->result = worker->solve(p);});
+    //Function to run ptr->solve and store result in ptr->result
+    auto func = ([=]{worker->result = worker->solve(p);});
+
+    //Run function either with new thread or existing thread
+    if (newThread) {
+        worker->thread = std::thread(func);
+    } else {
+        func();
+    }
+
     return worker;
 }
 

@@ -16,6 +16,7 @@
       <change beforePath="$PROJECT_DIR$/src/Worker.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Worker.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/main.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CS4204_P2_DC" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CS4204_P2_DC" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -75,7 +76,7 @@
       <workItem from="1588854792494" duration="20514000" />
       <workItem from="1588942859595" duration="21060000" />
       <workItem from="1589025572046" duration="35265000" />
-      <workItem from="1589107654001" duration="5755000" />
+      <workItem from="1589107654001" duration="10503000" />
     </task>
     <task id="LOCAL-00001" summary="Implemented divide and conquer pattern presented in paper. Need to implement patterns for quicksort and merge sort. Then need to parallelise solve function of each skeleton to make use of pthreads to run on multiple cores.">
       <created>1588884458990</created>
@@ -133,7 +134,14 @@
       <option name="project" value="LOCAL" />
       <updated>1589111995259</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Changed createWorker to use lambda function instead of separate wrapper function for running thread. also renamed the queue functions.">
+      <created>1589113454576</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1589113454576</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -161,6 +169,7 @@
     <MESSAGE value="Code does not work correctly with smart pointers and multiple threads. Need to debug segmentation fault and add load balancing/work stealing." />
     <MESSAGE value="Fixed incorrect calculation when determining how many new threads to create." />
     <MESSAGE value="Thread creation seems correct, just seems to be deadlocking now for fib(5)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Thread creation seems correct, just seems to be deadlocking now for fib(5)" />
+    <MESSAGE value="Changed createWorker to use lambda function instead of separate wrapper function for running thread. also renamed the queue functions." />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed createWorker to use lambda function instead of separate wrapper function for running thread. also renamed the queue functions." />
   </component>
 </project>
