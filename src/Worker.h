@@ -57,7 +57,7 @@ public:
 
     int numThreadsToCreate();
 
-    void createWorker(std::vector<std::shared_ptr<Worker<ProblemType, ResultType>>> workers, ProblemType p);
+    std::shared_ptr<Worker<ProblemType, ResultType>> createWorker(ProblemType p);
 
     void putTask(std::shared_ptr<Task<ProblemType, ResultType>> t);
 
@@ -73,6 +73,7 @@ public:
 //TODO - put code in functions
 template<typename ProblemType, typename ResultType>
 ResultType Worker<ProblemType, ResultType>::solve(ProblemType p) {
+    std::cout << "Problem: " << p << std::endl;
     //If base condition
     if (this->threshold(p)) {
         //Return base solution
@@ -87,17 +88,21 @@ ResultType Worker<ProblemType, ResultType>::solve(ProblemType p) {
             //TODO - simplify by passing task to putTask as parameter and making shared_ptr inside function
             //TODO - perhaps get rid of functions entirely and have code for queues in this function
             //TODO - maybe also just name functions e.g. putTaskOnInputQueue so it reads better
-            std::shared_ptr<Task<ProblemType, ResultType>> taskPtr = std::make_shared<Task<ProblemType, ResultType>>(Task<ProblemType, ResultType>(ps[i]));
+            std::shared_ptr<Task<ProblemType, ResultType>> taskPtr =std::make_shared<Task<ProblemType, ResultType>>(Task<ProblemType, ResultType>(ps[i]));
             putTask(taskPtr);
         }
+        std::cout << std::endl << "Size of inputQueue: " << inputQueue.size() << std::endl;
         //Determine number of threads to run
         unsigned int threadsToCreate = numThreadsToCreate();
+        std::cout << "tid:" << std::hash<std::thread::id>{}(std::this_thread::get_id()) << std::endl;
+        std::cout << "Active threads before: " << numActiveThreads << std::endl;
+        numActiveThreads += threadsToCreate;
+        std::cout << "Active threads after: " << numActiveThreads << std::endl;
 
         //Assign tasks from input queue to new threads
         while (children.size() < threadsToCreate) {
             std::shared_ptr<Task<ProblemType, ResultType>> task = getTask();
-            numActiveThreads++;
-            createWorker(children, task->getProblem());
+            children.push_back(createWorker(task->getProblem()));
         }
 
         //Gather results of thread computation
@@ -122,12 +127,14 @@ ResultType Worker<ProblemType, ResultType>::solve(ProblemType p) {
             putResult(solve(getTask()->getProblem()));
         }
 
-//        //Lock task mutex
-//        std::unique_lock lock(taskMutex);
-//
-//        //Execution halts until outputQueue is the size of the problem set ps
-//        //i.e. every problem in the problem set has produced a result
-//        conditionVariable.wait(lock, getSize(outputQueue) == ps.size());
+        //Lock task mutex
+        std::unique_lock lock(taskMutex);
+
+        //Execution halts until outputQueue is the size of the problem set ps
+        //i.e. every problem in the problem set has produced a result
+        while (outputQueue.size() != ps.size()) {
+            conditionVariable.wait(lock);
+        }
 
         std::vector<ResultType> res;
 
@@ -149,14 +156,17 @@ template<typename ProblemType, typename ResultType>
 int Worker<ProblemType, ResultType>::numThreadsToCreate() {
     std::lock_guard<std::mutex> lockGuard(queueMutex);
     int freeCPUs = numCPUs - numActiveThreads;
+    std::cout << "Num CPUs: " << numCPUs << std::endl;
+    std::cout << "numActiveThreads: " << numActiveThreads << std::endl;
+    std::cout << "Free CPUs: " << freeCPUs << std::endl;
 
     //If size of task pool is greater than or equal to the number of free CPUS
     if (inputQueue.size() >= freeCPUs) {
-        //Then no more cores are available
-        return 0;
+        //Then create a new thread for each free CPU core
+        return freeCPUs;
     } else {
-        //Otherwise return the remaining number of cores not in use
-        return freeCPUs - inputQueue.size();
+        //Otherwise create one for each task
+        return inputQueue.size();
     }
 }
 
@@ -168,14 +178,14 @@ int Worker<ProblemType, ResultType>::numThreadsToCreate() {
  * @param p - problem to solve
  */
 template<typename ProblemType, typename ResultType>
-void Worker<ProblemType, ResultType>::createWorker(std::vector<std::shared_ptr<Worker<ProblemType, ResultType>>> workers, ProblemType p) {
-    unsigned int activeThreads = numThreadsToCreate() + numActiveThreads;
-    workers.push_back(std::make_shared<Worker<ProblemType, ResultType>>(this->divide, this->combine, this->base, this->threshold, activeThreads));
-    std::shared_ptr<Worker<ProblemType, ResultType>> ptr = workers.back();
+std::shared_ptr<Worker<ProblemType, ResultType>> Worker<ProblemType, ResultType>::createWorker(ProblemType p) {
+    std::shared_ptr<Worker<ProblemType, ResultType>> ptr =
+            std::make_shared<Worker<ProblemType, ResultType>>(this->divide, this->combine, this->base, this->threshold, numActiveThreads);
     ptr->parent = this;
     std::promise<ResultType> promise;
     ptr->thread = std::thread(&Worker::solve, ptr, p);
     ptr->solution = promise.get_future();
+    return ptr;
 }
 
 /**
