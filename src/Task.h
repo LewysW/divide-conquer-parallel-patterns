@@ -20,16 +20,8 @@ public:
 
     explicit Task(Problem problem, Result result) : result(result) {}
 
-    void addChild(std::shared_ptr<Task> task) {
-        children.push_back(task);
-    }
-
     Problem getProblem() const {
         return problem;
-    }
-
-    Result getResult() const {
-        return result;
     }
 
     const std::vector<std::shared_ptr<Task>> &getChildren() const {

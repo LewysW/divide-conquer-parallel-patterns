@@ -68,6 +68,8 @@ public:
     ResultType getResultOutputQueue();
 
     unsigned int getSize(std::queue<std::shared_ptr<Task<ProblemType, ResultType>>> queue);
+
+    void farm(int numThreads);
 };
 
 //TODO - move implementation to cpp file
@@ -100,35 +102,13 @@ ResultType Worker<ProblemType, ResultType>::solve(ProblemType p) {
             std::shared_ptr<Task<ProblemType, ResultType>> taskPtr = std::make_shared<Task<ProblemType, ResultType>>(Task<ProblemType, ResultType>(ps[i]));
             putTaskInputQueue(taskPtr);
         }
-        //Determine number of threads to run
-        unsigned int threadsToCreate = numThreadsToCreate();
-        numActiveThreads += threadsToCreate;
 
-        //Assign tasks from input queue to new threads
-        while (children.size() < threadsToCreate) {
-            std::shared_ptr<Task<ProblemType, ResultType>> task = getTaskInputQueue();
-            children.push_back(createWorker(task->getProblem(), true));
+        //If more threads can be created
+        if (numThreadsToCreate() > 0) {
+            //Launch threads and gather results of computations
+            farm(numThreadsToCreate());
         }
 
-        //Gather results of thread computation
-        while (!children.empty()) {
-            //Join thread and get result of computation
-            children.front()->thread.join();
-            ResultType solveRes = children.front()->result;
-
-            //Decrease number of active threads
-            numActiveThreads--;
-
-            //Store task on output queue
-            putResultOutputQueue(solveRes);
-
-            //Remove worker from list of children
-            children.erase(children.begin());
-        }
-
-
-        //Run thread on ptr->solve and store result in ptr->result
-        //TODO - change way output queue size is calculated so that program may terminate
         //Solve remaining tasks in inputQueue
         while (!inputQueue.empty()) {
             ResultType solution = createWorker(getTaskInputQueue()->getProblem(), false)->result;
@@ -152,6 +132,33 @@ ResultType Worker<ProblemType, ResultType>::solve(ProblemType p) {
 
         //Combine the results
         return this->combine(res);
+    }
+}
+
+template<typename ProblemType, typename ResultType>
+void Worker<ProblemType, ResultType>::farm(int numThreads) {
+    numActiveThreads += numThreads;
+
+    //Assign tasks from input queue to new threads
+    while (children.size() < numThreads) {
+        std::shared_ptr<Task<ProblemType, ResultType>> task = getTaskInputQueue();
+        children.push_back(createWorker(task->getProblem(), true));
+    }
+
+    //Gather results of thread computation
+    while (!children.empty()) {
+        //Join thread and get result of computation
+        children.front()->thread.join();
+        ResultType solveRes = children.front()->result;
+
+        //Decrease number of active threads
+        numActiveThreads--;
+
+        //Store task on output queue
+        putResultOutputQueue(solveRes);
+
+        //Remove worker from list of children
+        children.erase(children.begin());
     }
 }
 
