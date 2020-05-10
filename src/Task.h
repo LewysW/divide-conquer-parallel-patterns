@@ -16,7 +16,9 @@ private:
     bool solved = false;
 
 public:
-    Task(Problem problem) : problem(problem) {}
+    explicit Task(Problem problem) : problem(problem) {}
+
+    explicit Task(Problem problem, Result result) : result(result) {}
 
     void addChild(std::shared_ptr<Task> task) {
         children.push_back(task);

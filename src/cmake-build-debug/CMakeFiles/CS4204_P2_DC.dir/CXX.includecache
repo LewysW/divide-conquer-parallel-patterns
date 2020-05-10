@@ -38,10 +38,6 @@ Worker.h
 List.h
 /home/lewys/Documents/CS4204/CS4204-P2-DC/src/List.h
 
-/home/lewys/Documents/CS4204/CS4204-P2-DC/src/Task.cpp
-Task.h
-/home/lewys/Documents/CS4204/CS4204-P2-DC/src/Task.h
-
 /home/lewys/Documents/CS4204/CS4204-P2-DC/src/Task.h
 memory
 -
@@ -63,6 +59,12 @@ DCSkeleton.h
 /home/lewys/Documents/CS4204/CS4204-P2-DC/src/DCSkeleton.h
 Task.h
 /home/lewys/Documents/CS4204/CS4204-P2-DC/src/Task.h
+mutex
+-
+condition_variable
+-
+future
+-
 
 /home/lewys/Documents/CS4204/CS4204-P2-DC/src/main.cpp
 iostream

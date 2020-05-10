@@ -1,1 +1,1 @@
-/usr/bin/c++  -g   CMakeFiles/CS4204_P2_DC.dir/main.cpp.o CMakeFiles/CS4204_P2_DC.dir/Task.cpp.o CMakeFiles/CS4204_P2_DC.dir/Worker.cpp.o  -o CS4204_P2_DC 
+/usr/bin/c++  -g   CMakeFiles/CS4204_P2_DC.dir/main.cpp.o CMakeFiles/CS4204_P2_DC.dir/Task.cpp.o CMakeFiles/CS4204_P2_DC.dir/Worker.cpp.o  -o CS4204_P2_DC -lpthread 

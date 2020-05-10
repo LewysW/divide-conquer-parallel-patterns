@@ -29,7 +29,9 @@ public:
             //Threshold
             [](const int& p) {
                 return p < 2;
-            }
+            },
+            //No active threads initially
+            0
     ) {}
 };
 

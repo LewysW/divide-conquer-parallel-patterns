@@ -92,7 +92,9 @@ public:
             //Threshold
             [](const List& list) {
                 return list.low >= list.high;
-            }
+            },
+            //No active threads initially
+            0
     ) {
 
     }
