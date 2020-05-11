@@ -12,10 +12,6 @@ functional
 utility
 -
 
-/home/lewys/Documents/CS4204/CS4204-P2-DC/src/FibWorker.h
-Worker.h
-/home/lewys/Documents/CS4204/CS4204-P2-DC/src/Worker.h
-
 /home/lewys/Documents/CS4204/CS4204-P2-DC/src/List.h
 algorithm
 -
@@ -23,20 +19,6 @@ utility
 -
 vector
 -
-
-/home/lewys/Documents/CS4204/CS4204-P2-DC/src/MergeSortWorker.h
-memory
--
-Worker.h
-/home/lewys/Documents/CS4204/CS4204-P2-DC/src/Worker.h
-List.h
-/home/lewys/Documents/CS4204/CS4204-P2-DC/src/List.h
-
-/home/lewys/Documents/CS4204/CS4204-P2-DC/src/QuickSortWorker.h
-Worker.h
-/home/lewys/Documents/CS4204/CS4204-P2-DC/src/Worker.h
-List.h
-/home/lewys/Documents/CS4204/CS4204-P2-DC/src/List.h
 
 /home/lewys/Documents/CS4204/CS4204-P2-DC/src/Task.h
 memory
@@ -47,6 +29,8 @@ vector
 /home/lewys/Documents/CS4204/CS4204-P2-DC/src/Worker.cpp
 Worker.h
 /home/lewys/Documents/CS4204/CS4204-P2-DC/src/Worker.h
+List.h
+/home/lewys/Documents/CS4204/CS4204-P2-DC/src/List.h
 
 /home/lewys/Documents/CS4204/CS4204-P2-DC/src/Worker.h
 queue
@@ -68,25 +52,5 @@ future
 set
 -
 random
--
-
-/home/lewys/Documents/CS4204/CS4204-P2-DC/src/main.cpp
-iostream
--
-FibWorker.h
-/home/lewys/Documents/CS4204/CS4204-P2-DC/src/FibWorker.h
-MergeSortWorker.h
-/home/lewys/Documents/CS4204/CS4204-P2-DC/src/MergeSortWorker.h
-utility.h
-/home/lewys/Documents/CS4204/CS4204-P2-DC/src/utility.h
-QuickSortWorker.h
-/home/lewys/Documents/CS4204/CS4204-P2-DC/src/QuickSortWorker.h
-climits
--
-random
--
-
-/home/lewys/Documents/CS4204/CS4204-P2-DC/src/utility.h
-cstdio
 -
 

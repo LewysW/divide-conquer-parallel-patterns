@@ -5,6 +5,7 @@ CMakeFiles/CS4204_P2_DC.dir/Task.cpp.o: ../Task.cpp
 CMakeFiles/CS4204_P2_DC.dir/Task.cpp.o: ../Task.h
 
 CMakeFiles/CS4204_P2_DC.dir/Worker.cpp.o: ../DCSkeleton.h
+CMakeFiles/CS4204_P2_DC.dir/Worker.cpp.o: ../List.h
 CMakeFiles/CS4204_P2_DC.dir/Worker.cpp.o: ../Task.h
 CMakeFiles/CS4204_P2_DC.dir/Worker.cpp.o: ../Worker.cpp
 CMakeFiles/CS4204_P2_DC.dir/Worker.cpp.o: ../Worker.h

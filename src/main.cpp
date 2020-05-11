@@ -3,7 +3,6 @@
 #include "MergeSortWorker.h"
 #include "utility.h"
 #include "QuickSortWorker.h"
-#include <climits>
 #include <random>
 
 int main() {
