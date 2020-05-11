@@ -10,10 +10,6 @@ private:
     //Stores problem and result of task
     Problem problem;
     Result result;
-    //Stores child tasks, the result of which this task depends
-    std::vector<std::shared_ptr<Task>> children;
-    //Marks if task has been solved
-    bool solved = false;
 
 public:
     explicit Task(Problem problem) : problem(problem) {}
@@ -22,14 +18,6 @@ public:
 
     Problem getProblem() const {
         return problem;
-    }
-
-    const std::vector<std::shared_ptr<Task>> &getChildren() const {
-        return children;
-    }
-
-    bool isSolved() const {
-        return solved;
     }
 };
 

@@ -9,10 +9,16 @@
 #include <mutex>
 #include <condition_variable>
 #include <future>
+#include <set>
+#include <random>
 
 template <typename ProblemType, typename ResultType>
 class Worker : public DCSkeleton<ProblemType, ResultType> {
 public:
+    //Workers performing computation sequentially
+    static std::set<Worker<ProblemType, ResultType>*> activeWorkers;
+    static std::mutex activeMutex;
+
     //Queue to store tasks to be solved
     std::queue<std::shared_ptr<Task<ProblemType, ResultType>>> inputQueue;
 
@@ -31,14 +37,8 @@ public:
     //Vector to store child workers
     std::vector<std::shared_ptr<Worker<ProblemType, ResultType>>> children;
 
-    //Processor cores not in use
-    const unsigned int numCPUs = std::thread::hardware_concurrency();
-
     //Number of active threads when this thread was created
     unsigned int numActiveThreads;
-
-    //Parent pointer if worker is a child
-    Worker<ProblemType, ResultType>* parent;
 
     //Stores created thread
     std::thread thread;
@@ -50,7 +50,8 @@ public:
            const std::function<ResultType(std::vector<ResultType>)> &combine,
            const std::function<ResultType(const ProblemType &)> &base,
            const std::function<bool(const ProblemType &)> &threshold,
-           const int numActiveThreads) : DCSkeleton<ProblemType, ResultType>(divide, combine, base, threshold),
+           const int numActiveThreads) :
+                                                    DCSkeleton<ProblemType, ResultType>(divide, combine, base, threshold),
                                                     numActiveThreads(numActiveThreads) {}
 
     ResultType solve(ProblemType p);
@@ -70,9 +71,22 @@ public:
     unsigned int getSize(std::queue<std::shared_ptr<Task<ProblemType, ResultType>>> queue);
 
     void farm(int numThreads);
+
+    bool stealTask(Worker<ProblemType, ResultType>*& taskOwner,
+            std::shared_ptr<Task<ProblemType, ResultType>>& task);
+
+    void setActive(Worker<ProblemType, ResultType>* worker);
+    void setInactive(Worker<ProblemType, ResultType>* worker);
 };
 
 //TODO - move implementation to cpp file
+
+template <typename ProblemType, typename ResultType>
+std::set<Worker<ProblemType, ResultType>*> Worker<ProblemType, ResultType>::activeWorkers = {};
+
+template <typename ProblemType, typename ResultType>
+std::mutex Worker<ProblemType, ResultType>::activeMutex;
+
 
 //TODO - put code in functions
 
@@ -100,10 +114,14 @@ ResultType Worker<ProblemType, ResultType>::solve(ProblemType p) {
         //For each problem
         for (int i = 0; i < ps.size(); i++) {
             //Create task using problem
-            std::shared_ptr<Task<ProblemType, ResultType>> taskPtr = std::make_shared<Task<ProblemType, ResultType>>(Task<ProblemType, ResultType>(ps[i]));
+            std::shared_ptr<Task<ProblemType, ResultType>> taskPtr =
+                    std::make_shared<Task<ProblemType, ResultType>>(Task<ProblemType, ResultType>(ps[i]));
             //Add the task to the input queue
             putTaskInputQueue(taskPtr);
         }
+
+        //Want to avoid task stealing while assigning tasks to threads
+        setInactive(this);
 
         //If more threads can be created
         if (numThreadsToCreate() > 0) {
@@ -111,19 +129,19 @@ ResultType Worker<ProblemType, ResultType>::solve(ProblemType p) {
             farm(numThreadsToCreate());
         }
 
+        //Add self back to active list
+        setActive(this);
+
         //Recursively solve remaining tasks in inputQueue if any remain
-        while (!inputQueue.empty()) {
-            ResultType solution = createWorker(getTaskInputQueue()->getProblem(), false)->result;
+        std::shared_ptr<Task<ProblemType, ResultType>> task;
+        while ((task = getTaskInputQueue())) {
+            ResultType solution = createWorker(task->getProblem(), false)->result;
             putResultOutputQueue(solution);
         }
 
+        //Worker finished computation
+        setInactive(this);
 
-
-        /**
-         * Execution halts until outputQueue is the size of the problem set ps
-         * i.e. every problem in the problem set has produced a result.
-         * This is to ensure any stolen tasks have returned a solution
-         */
         //Lock task mutex
         std::unique_lock lock(taskMutex);
         //Move on if results have been produced for every task
@@ -139,14 +157,16 @@ ResultType Worker<ProblemType, ResultType>::solve(ProblemType p) {
             res.push_back(getResultOutputQueue());
         }
 
-        //TODO - check if any other sibling threads are running (check active thread count of parent against active thread count of this) and steal work
-        // Need function in Worker to randomly select child to steal from (which would be invoked using the parent pointer), selecting the next sibling if
-        // the randomly chosen sibling has no tasks in input queue or is the requesting sibling. If input queues of all siblings empty, steal from cousins etc...
-        // Result of this thread cannot be used until they have finished running
-        // Reason we steal from queue of sibling or cousin is for the following reasons:
-        // 1. Their results are needed to be combined with our results
-        // 2. If we have solved our tasks manually, our thread must be a leaf node in the tree, meaning no new threads can be created,
-        // therefore the siblings are also unable to create new threads to farm their work to, therefore we can perform useful work for them
+        //TODO - steal tasks while there are tasks valid to steal
+
+//        Worker<ProblemType, ResultType>* owner;
+//        std::shared_ptr<Task<ProblemType, ResultType>> stolen;
+//
+//        //While there is a valid task to steal...
+//        while (stealTask(owner, stolen)) {
+//            //...solve the task and write the results back to the owner of the task
+//            owner->putResultOutputQueue(solve(stolen->getProblem()));
+//        }
 
         //Combine the results and return
         return this->combine(res);
@@ -165,9 +185,10 @@ void Worker<ProblemType, ResultType>::farm(int numThreads) {
 
     //Gather results of thread computation
     while (!children.empty()) {
+        std::shared_ptr<Worker<ProblemType, ResultType>> worker = children.front();
         //Join thread and get result of computation
-        children.front()->thread.join();
-        ResultType solveRes = children.front()->result;
+        worker->thread.join();
+        ResultType solveRes = worker->result;
 
         //Decrease number of active threads
         numActiveThreads--;
@@ -181,12 +202,69 @@ void Worker<ProblemType, ResultType>::farm(int numThreads) {
 }
 
 /**
+ * Requests task from parent and returns whether one is available
+ * @tparam ProblemType - type of problem
+ * @tparam ResultType - type of result
+ * @param taskOwner - owner of stolen task if one is available
+ * @param task - stolen task if available
+ * @return whether there is a task to steal
+ */
+template<typename ProblemType, typename ResultType>
+bool Worker<ProblemType, ResultType>::stealTask(Worker<ProblemType, ResultType>*& taskOwner,
+                                                std::shared_ptr<Task<ProblemType, ResultType>>& task) {
+    std::lock_guard<std::mutex> lockGuard(Worker::activeMutex);
+    taskOwner = nullptr;
+    task = nullptr;
+
+    //Generate random index in activeWorkers
+    std::random_device rd;
+    std::mt19937 mt(rd());
+    std::uniform_real_distribution<double> dist(0,  Worker::activeWorkers.size() - 1);
+    int index = dist(mt);
+
+    //Get iterator at index of that worker
+    typename std::set<Worker<ProblemType, ResultType>*>::iterator it = Worker::activeWorkers.begin();
+    std::advance(it, index);
+
+    //repeat while we don't have a task
+    int currentWorker = index;
+    while (task == nullptr) {
+        //If current worker to steal from is at same depth or lower in tree
+        // (meaning they need to finish before the results of the our worker are useful)
+        if ((*it)->numActiveThreads >= this->numActiveThreads) {
+            //Attempt to get a task from the current worker
+            task = (*it)->getTaskInputQueue();
+            //Store current worker as it relies on the result of the task
+            taskOwner = *it;
+        } else {
+            it++;
+            currentWorker++;
+
+            //If we have traversed entire data structure...
+            if (currentWorker == index) {
+                //... then there are no valid workers from which to steal tasks
+                return false;
+            } else if (it == Worker::activeWorkers.end()) {
+                //Wrap around to start of data structure if we reached the end
+                it = Worker::activeWorkers.begin();
+                currentWorker = 0;
+            }
+        }
+    }
+
+    return true;
+}
+
+
+
+/**
  * Gets the number of threads to create
  * (determined by number of free CPUs and threads currently running)
  */
 template<typename ProblemType, typename ResultType>
 int Worker<ProblemType, ResultType>::numThreadsToCreate() {
     std::lock_guard<std::mutex> lockGuard(queueMutex);
+    unsigned int numCPUs = std::thread::hardware_concurrency();
     int freeCPUs = numCPUs - numActiveThreads;
 
     //If size of task pool is greater than or equal to the number of free CPUS
@@ -210,13 +288,14 @@ template<typename ProblemType, typename ResultType>
 std::shared_ptr<Worker<ProblemType, ResultType>> Worker<ProblemType, ResultType>::createWorker(ProblemType p, bool newThread) {
     std::shared_ptr<Worker<ProblemType, ResultType>> worker =
             std::make_shared<Worker<ProblemType, ResultType>>(this->divide, this->combine, this->base, this->threshold, numActiveThreads);
-    worker->parent = this;
-
     //Function to run ptr->solve and store result in ptr->result
     auto func = ([=]{worker->result = worker->solve(p);});
 
     //Run function either with new thread or existing thread
     if (newThread) {
+        //Marks worker as active
+        setActive(worker.get());
+        //Runs worker with thread
         worker->thread = std::thread(func);
     } else {
         func();
@@ -248,6 +327,8 @@ void Worker<ProblemType, ResultType>::putTaskInputQueue(std::shared_ptr<Task<Pro
 template<typename ProblemType, typename ResultType>
 std::shared_ptr<Task<ProblemType, ResultType>> Worker<ProblemType, ResultType>::getTaskInputQueue() {
     std::lock_guard<std::mutex> lockGuard(queueMutex);
+    if (inputQueue.empty()) return nullptr;
+
     std::shared_ptr<Task<ProblemType, ResultType>> t = inputQueue.front();
     inputQueue.pop();
     return t;
@@ -280,5 +361,22 @@ ResultType Worker<ProblemType, ResultType>::getResultOutputQueue() {
     return result;
 }
 
+template<typename ProblemType, typename ResultType>
+void Worker<ProblemType, ResultType>::setActive(Worker<ProblemType, ResultType>* worker) {
+    std::lock_guard<std::mutex> lockGuard(Worker::activeMutex);
+    //If worker inactive, then add to active workers
+    if (Worker::activeWorkers.find(worker) != Worker::activeWorkers.end()) {
+        Worker::activeWorkers.insert(worker);
+    }
+}
+
+template<typename ProblemType, typename ResultType>
+void Worker<ProblemType, ResultType>::setInactive(Worker<ProblemType, ResultType>* worker) {
+    //If worker active, then remove from active workers
+    std::lock_guard<std::mutex> lockGuard(Worker::activeMutex);
+    if (Worker::activeWorkers.find(worker) != Worker::activeWorkers.end()) {
+        Worker::activeWorkers.erase(worker);
+    }
+}
 
 #endif //CS4204_P2_DC_WORKER_H

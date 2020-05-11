@@ -13,7 +13,13 @@
   <component name="ChangeListManager">
     <list default="true" id="6342a3c1-9868-427a-9282-17007d2edf91" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Task.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Task.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Worker.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Worker.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Worker.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Worker.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/CXX.includecache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/main.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CS4204_P2_DC" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CS4204_P2_DC" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -73,7 +79,9 @@
       <workItem from="1588854792494" duration="20514000" />
       <workItem from="1588942859595" duration="21060000" />
       <workItem from="1589025572046" duration="35265000" />
-      <workItem from="1589107654001" duration="18952000" />
+      <workItem from="1589107654001" duration="19003000" />
+      <workItem from="1589190346074" duration="12646000" />
+      <workItem from="1589206626168" duration="6346000" />
     </task>
     <task id="LOCAL-00001" summary="Implemented divide and conquer pattern presented in paper. Need to implement patterns for quicksort and merge sort. Then need to parallelise solve function of each skeleton to make use of pthreads to run on multiple cores.">
       <created>1588884458990</created>
@@ -159,7 +167,14 @@
       <option name="project" value="LOCAL" />
       <updated>1589143201194</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Added todo outlining what needs to be done to implement work stealing.">
+      <created>1589156295310</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1589156295310</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -191,6 +206,7 @@
     <MESSAGE value="Single threaded fibonacci works using input and output queues. Need to test using multiple threads." />
     <MESSAGE value="Divide and conquer patterns can now be solved using multiple threads." />
     <MESSAGE value="Moved code to create and join threads into a function called farm." />
-    <option name="LAST_COMMIT_MESSAGE" value="Moved code to create and join threads into a function called farm." />
+    <MESSAGE value="Added todo outlining what needs to be done to implement work stealing." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added todo outlining what needs to be done to implement work stealing." />
   </component>
 </project>

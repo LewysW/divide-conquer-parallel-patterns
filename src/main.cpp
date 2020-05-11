@@ -22,6 +22,7 @@ int main() {
     int* arr2 = (int*) malloc(sizeOfList * sizeof(int));
     int l = 0;
     int r = sizeOfList - 1;
+    //TODO - change to be reverse sorted list
     std::random_device rd;
     std::mt19937 mt(rd());
     std::uniform_real_distribution<double> dist(1.0, 100);
