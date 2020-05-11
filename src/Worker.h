@@ -82,7 +82,7 @@ public:
 //TODO - move implementation to cpp file
 
 template <typename ProblemType, typename ResultType>
-std::set<Worker<ProblemType, ResultType>*> Worker<ProblemType, ResultType>::activeWorkers = {};
+std::set<Worker<ProblemType, ResultType>*> Worker<ProblemType, ResultType>::activeWorkers;
 
 template <typename ProblemType, typename ResultType>
 std::mutex Worker<ProblemType, ResultType>::activeMutex;
@@ -159,10 +159,12 @@ ResultType Worker<ProblemType, ResultType>::solve(ProblemType p) {
 
         //TODO - steal tasks while there are tasks valid to steal
 
-//        Worker<ProblemType, ResultType>* owner;
-//        std::shared_ptr<Task<ProblemType, ResultType>> stolen;
-//
-//        //While there is a valid task to steal...
+        Worker<ProblemType, ResultType>* owner;
+        std::shared_ptr<Task<ProblemType, ResultType>> stolen;
+
+        //TODO - solve issue with incorrect results or not terminating
+        //TODO - perhaps too many things are being added to the active set?
+        //While there is a valid task to steal...
 //        while (stealTask(owner, stolen)) {
 //            //...solve the task and write the results back to the owner of the task
 //            owner->putResultOutputQueue(solve(stolen->getProblem()));
@@ -216,43 +218,28 @@ bool Worker<ProblemType, ResultType>::stealTask(Worker<ProblemType, ResultType>*
     taskOwner = nullptr;
     task = nullptr;
 
-    //Generate random index in activeWorkers
-    std::random_device rd;
-    std::mt19937 mt(rd());
-    std::uniform_real_distribution<double> dist(0,  Worker::activeWorkers.size() - 1);
-    int index = dist(mt);
+    if (Worker::activeWorkers.size() == 0) return false;
 
-    //Get iterator at index of that worker
-    typename std::set<Worker<ProblemType, ResultType>*>::iterator it = Worker::activeWorkers.begin();
-    std::advance(it, index);
+    //Iterate through active workers
+    for (auto it = Worker::activeWorkers.begin(); it != Worker::activeWorkers.end(); it++) {
+        Worker<ProblemType, ResultType>* currentWorker = (*it);
 
-    //repeat while we don't have a task
-    int currentWorker = index;
-    while (task == nullptr) {
-        //If current worker to steal from is at same depth or lower in tree
-        // (meaning they need to finish before the results of the our worker are useful)
-        if ((*it)->numActiveThreads >= this->numActiveThreads) {
-            //Attempt to get a task from the current worker
-            task = (*it)->getTaskInputQueue();
-            //Store current worker as it relies on the result of the task
-            taskOwner = *it;
-        } else {
-            it++;
-            currentWorker++;
+        //If thread at same level in tree or deeper
+        if (currentWorker->numActiveThreads >= this->numActiveThreads) {
+            //Attempt to get a task from the worker
+            task = currentWorker->getTaskInputQueue();
+            //Keep track of the worker which requires the result of the task
+            taskOwner = currentWorker;
 
-            //If we have traversed entire data structure...
-            if (currentWorker == index) {
-                //... then there are no valid workers from which to steal tasks
-                return false;
-            } else if (it == Worker::activeWorkers.end()) {
-                //Wrap around to start of data structure if we reached the end
-                it = Worker::activeWorkers.begin();
-                currentWorker = 0;
+            //If valid task has been retrieved, return true
+            if (task != nullptr) {
+                return true;
             }
         }
     }
 
-    return true;
+    //If no valid tasks return false
+    return false;
 }
 
 
@@ -364,15 +351,15 @@ ResultType Worker<ProblemType, ResultType>::getResultOutputQueue() {
 template<typename ProblemType, typename ResultType>
 void Worker<ProblemType, ResultType>::setActive(Worker<ProblemType, ResultType>* worker) {
     std::lock_guard<std::mutex> lockGuard(Worker::activeMutex);
-    //If worker inactive, then add to active workers
-    if (Worker::activeWorkers.find(worker) != Worker::activeWorkers.end()) {
+    //If worker inactive (i.e. not in set), then add to active workers
+    if (Worker::activeWorkers.find(worker) == Worker::activeWorkers.end()) {
         Worker::activeWorkers.insert(worker);
     }
 }
 
 template<typename ProblemType, typename ResultType>
 void Worker<ProblemType, ResultType>::setInactive(Worker<ProblemType, ResultType>* worker) {
-    //If worker active, then remove from active workers
+    //If worker active (in set), then remove from active workers
     std::lock_guard<std::mutex> lockGuard(Worker::activeMutex);
     if (Worker::activeWorkers.find(worker) != Worker::activeWorkers.end()) {
         Worker::activeWorkers.erase(worker);
