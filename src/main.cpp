@@ -5,21 +5,48 @@
 #include "QuickSortWorker.h"
 #include <random>
 #include <getopt.h>
+#include "main.h"
 
 int main(int argc, char** argv) {
+    unsigned int numProcessors = std::thread::hardware_concurrency();
+    bool runFib = false;
+    bool runMerge = false;
+    bool runQSort = false;
     int ch;
-    while ((ch = getopt(argc, argv, "v:")) != -1)
+
+    while ((ch = getopt(argc, argv, "p:fmq")) != -1)
     {
         switch (ch)
         {
-            case 'v':
-                std::cout << optarg << std::endl;
+            case 'p':
+                numProcessors = atoi(optarg);
                 break;
+            case 'f':
+                runFib = true;
+                break;
+            case 'm':
+                runMerge = true;
+                break;
+            case 'q':
+                runQSort = true;
+                break;
+            default:
+                //std::cout << optarg << std::endl;
+                std::cout << "Usage: ./dac -p <num processors> -f -m -q" << std::endl;
+                std::cout << "-p, specify max number of processors to be run" << std::endl;
+                std::cout << "-f, run fibonacci benchmark" << std::endl;
+                std::cout << "-m, run merge sort benchmark" << std::endl;
+                std::cout << "-q, run quick sort benchmark" << std::endl;
+                exit(INVALID_ARG);
         }
     }
 
+    runBenchmarks(numProcessors, runFib, runMerge, runQSort);
     //TODO WRITE BENCHMARKS
+    return 0;
+}
 
+void runBenchmarks(unsigned int processors, bool runFib, bool runMerge, bool runQSort) {
     //TODO - add parameter to Worker subclasses allow number of cores to be specified
     //Solves fibonacci(n)
     int n;
@@ -66,6 +93,4 @@ int main(int argc, char** argv) {
 
     std::cout << "Sorted list: ";
     printArray(arr2, sizeOfList);
-
-    return 0;
 }

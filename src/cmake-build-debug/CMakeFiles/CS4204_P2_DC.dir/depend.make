@@ -18,5 +18,6 @@ CMakeFiles/CS4204_P2_DC.dir/main.cpp.o: ../QuickSortWorker.h
 CMakeFiles/CS4204_P2_DC.dir/main.cpp.o: ../Task.h
 CMakeFiles/CS4204_P2_DC.dir/main.cpp.o: ../Worker.h
 CMakeFiles/CS4204_P2_DC.dir/main.cpp.o: ../main.cpp
+CMakeFiles/CS4204_P2_DC.dir/main.cpp.o: ../main.h
 CMakeFiles/CS4204_P2_DC.dir/main.cpp.o: ../utility.h
 

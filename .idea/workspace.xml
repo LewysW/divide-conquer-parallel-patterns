@@ -12,15 +12,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6342a3c1-9868-427a-9282-17007d2edf91" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FibWorker.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/FibWorker.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MergeSortWorker.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/MergeSortWorker.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/QuickSortWorker.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/QuickSortWorker.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Worker.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Worker.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Worker.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Worker.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/CXX.includecache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/depend.internal" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/depend.internal" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/depend.make" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/main.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/progress.make" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/progress.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/Makefile.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/Makefile2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/progress.marks" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/progress.marks" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CS4204_P2_DC" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CS4204_P2_DC" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CS4204_P2_DC.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CS4204_P2_DC.cbp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -84,7 +90,7 @@
       <workItem from="1589107654001" duration="19003000" />
       <workItem from="1589190346074" duration="12646000" />
       <workItem from="1589206626168" duration="15481000" />
-      <workItem from="1589231503971" duration="4587000" />
+      <workItem from="1589231503971" duration="6447000" />
     </task>
     <task id="LOCAL-00001" summary="Implemented divide and conquer pattern presented in paper. Need to implement patterns for quicksort and merge sort. Then need to parallelise solve function of each skeleton to make use of pthreads to run on multiple cores.">
       <created>1588884458990</created>
@@ -205,7 +211,14 @@
       <option name="project" value="LOCAL" />
       <updated>1589234278953</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Added Makefile">
+      <created>1589236152671</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1589236152671</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -242,6 +255,7 @@
     <MESSAGE value="Simplified implementation of stealWork. Seems incorrect though due to number of active threads at any one time as well as blocking/deadlocking" />
     <MESSAGE value="Moved implementation into cpp file" />
     <MESSAGE value="Changed busy wait to use std::conditional_variable" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed busy wait to use std::conditional_variable" />
+    <MESSAGE value="Added Makefile" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Makefile" />
   </component>
 </project>

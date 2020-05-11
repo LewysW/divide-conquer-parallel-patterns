@@ -114,6 +114,9 @@
 		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/main.cpp">
 			<Option target="CS4204_P2_DC"/>
 		</Unit>
+		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/main.h">
+			<Option target="CS4204_P2_DC"/>
+		</Unit>
 		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/utility.h">
 			<Option target="CS4204_P2_DC"/>
 		</Unit>
