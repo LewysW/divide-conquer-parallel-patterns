@@ -58,10 +58,10 @@ ResultType Worker<ProblemType, ResultType>::solve(ProblemType p) {
         //Worker finished computation
         setInactive(this);
 
-        //TODO - avoid busy wait
-        //Move on if results have been produced for every task
-        while (outputQueue.size() != ps.size()) {
-            std::cout << "BUSY WAIT!" << std::endl;
+        //Wait for results to be placed in output queue (non busy wait)
+        if (outputQueue.size() != ps.size()) {
+            std::unique_lock<std::mutex> lock(taskMutex);
+            conditionVariable.wait(lock, [&]{return outputQueue.size() == ps.size();});
         }
 
         //Get results from output queue
@@ -77,6 +77,7 @@ ResultType Worker<ProblemType, ResultType>::solve(ProblemType p) {
         while (stealTask(owner, stolen)) {
             //...solve the task and write the results back to the owner of the task
             owner->putResultOutputQueue(solve(stolen->getProblem()));
+            owner->conditionVariable.notify_one();
         }
 
         //Combine the results and return

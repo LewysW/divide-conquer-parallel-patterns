@@ -6,8 +6,9 @@
 #include <random>
 
 int main() {
+    //TODO WRITE BENCHMARKS
+
     //TODO - add parameter to Worker subclasses allow number of cores to be specified
-    //TODO - add sequential functions as attributes to run instead of creating workers when no threads are available
     //Solves fibonacci(n)
     int n;
     std::cout << "Please enter an integer value: ";

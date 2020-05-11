@@ -76,7 +76,10 @@ public:
             std::shared_ptr<Task<ProblemType, ResultType>>& task);
 
     void setActive(Worker<ProblemType, ResultType>* worker);
+
     void setInactive(Worker<ProblemType, ResultType>* worker);
+
+    void waitForResults();
 };
 
 #endif //CS4204_P2_DC_WORKER_H

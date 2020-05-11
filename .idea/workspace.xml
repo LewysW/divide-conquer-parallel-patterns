@@ -13,9 +13,13 @@
   <component name="ChangeListManager">
     <list default="true" id="6342a3c1-9868-427a-9282-17007d2edf91" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Worker.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Worker.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Worker.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Worker.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/depend.internal" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/depend.internal" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/depend.make" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/main.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CS4204_P2_DC" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CS4204_P2_DC" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -78,6 +82,7 @@
       <workItem from="1589107654001" duration="19003000" />
       <workItem from="1589190346074" duration="12646000" />
       <workItem from="1589206626168" duration="15481000" />
+      <workItem from="1589231503971" duration="2738000" />
     </task>
     <task id="LOCAL-00001" summary="Implemented divide and conquer pattern presented in paper. Need to implement patterns for quicksort and merge sort. Then need to parallelise solve function of each skeleton to make use of pthreads to run on multiple cores.">
       <created>1588884458990</created>
@@ -184,7 +189,14 @@
       <option name="project" value="LOCAL" />
       <updated>1589221647940</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Moved implementation into cpp file">
+      <created>1589232125613</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1589232125613</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -219,17 +231,7 @@
     <MESSAGE value="Added todo outlining what needs to be done to implement work stealing." />
     <MESSAGE value="Wrote code to implement work stealing, need to debug segmentation fault." />
     <MESSAGE value="Simplified implementation of stealWork. Seems incorrect though due to number of active threads at any one time as well as blocking/deadlocking" />
-    <option name="LAST_COMMIT_MESSAGE" value="Simplified implementation of stealWork. Seems incorrect though due to number of active threads at any one time as well as blocking/deadlocking" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/Worker.h</url>
-          <line>235</line>
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Moved implementation into cpp file" />
+    <option name="LAST_COMMIT_MESSAGE" value="Moved implementation into cpp file" />
   </component>
 </project>
