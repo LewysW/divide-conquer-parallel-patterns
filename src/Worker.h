@@ -97,40 +97,58 @@ ResultType Worker<ProblemType, ResultType>::solve(ProblemType p) {
         std::vector<ProblemType> ps;
         ps = this->divide(p);
 
-        //Adds tasks to input queue
+        //For each problem
         for (int i = 0; i < ps.size(); i++) {
+            //Create task using problem
             std::shared_ptr<Task<ProblemType, ResultType>> taskPtr = std::make_shared<Task<ProblemType, ResultType>>(Task<ProblemType, ResultType>(ps[i]));
+            //Add the task to the input queue
             putTaskInputQueue(taskPtr);
         }
 
         //If more threads can be created
         if (numThreadsToCreate() > 0) {
-            //Launch threads and gather results of computations
+            //Launch threads to run tasks and gather results after they have finished
             farm(numThreadsToCreate());
         }
 
-        //Solve remaining tasks in inputQueue
+        //Recursively solve remaining tasks in inputQueue if any remain
         while (!inputQueue.empty()) {
             ResultType solution = createWorker(getTaskInputQueue()->getProblem(), false)->result;
             putResultOutputQueue(solution);
         }
+
+
+
+        /**
+         * Execution halts until outputQueue is the size of the problem set ps
+         * i.e. every problem in the problem set has produced a result.
+         * This is to ensure any stolen tasks have returned a solution
+         */
         //Lock task mutex
         std::unique_lock lock(taskMutex);
-
-        //Execution halts until outputQueue is the size of the problem set ps
-        //i.e. every problem in the problem set has produced a result
+        //Move on if results have been produced for every task
         while (outputQueue.size() != ps.size()) {
+            //Condition variable sporadically wakes up to check loop condition
+            //this technique avoids busy waiting
             conditionVariable.wait(lock);
         }
 
-        std::vector<ResultType> res;
-
         //Get results from output queue
+        std::vector<ResultType> res;
         while (!outputQueue.empty()) {
             res.push_back(getResultOutputQueue());
         }
 
-        //Combine the results
+        //TODO - check if any other sibling threads are running (check active thread count of parent against active thread count of this) and steal work
+        // Need function in Worker to randomly select child to steal from (which would be invoked using the parent pointer), selecting the next sibling if
+        // the randomly chosen sibling has no tasks in input queue or is the requesting sibling. If input queues of all siblings empty, steal from cousins etc...
+        // Result of this thread cannot be used until they have finished running
+        // Reason we steal from queue of sibling or cousin is for the following reasons:
+        // 1. Their results are needed to be combined with our results
+        // 2. If we have solved our tasks manually, our thread must be a leaf node in the tree, meaning no new threads can be created,
+        // therefore the siblings are also unable to create new threads to farm their work to, therefore we can perform useful work for them
+
+        //Combine the results and return
         return this->combine(res);
     }
 }
