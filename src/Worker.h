@@ -26,7 +26,7 @@ public:
     std::queue<ResultType> outputQueue;
 
     //Mutex to lock queues
-    std::mutex queueMutex;
+    std::recursive_mutex queueMutex;
 
     //Mutex to wait for completion of tasks
     std::mutex taskMutex;
@@ -120,17 +120,20 @@ ResultType Worker<ProblemType, ResultType>::solve(ProblemType p) {
             putTaskInputQueue(taskPtr);
         }
 
-        //Want to avoid task stealing while assigning tasks to threads
-        setInactive(this);
 
+        queueMutex.lock();
         //If more threads can be created
         if (numThreadsToCreate() > 0) {
+            //Want to avoid task stealing while assigning tasks to threads
+            setInactive(this);
+
             //Launch threads to run tasks and gather results after they have finished
             farm(numThreadsToCreate());
-        }
 
-        //Add self back to active list
-        setActive(this);
+            //Add self back to active list
+            setActive(this);
+        }
+        queueMutex.unlock();
 
         //Recursively solve remaining tasks in inputQueue if any remain
         std::shared_ptr<Task<ProblemType, ResultType>> task;
@@ -142,13 +145,9 @@ ResultType Worker<ProblemType, ResultType>::solve(ProblemType p) {
         //Worker finished computation
         setInactive(this);
 
-        //Lock task mutex
-        std::unique_lock lock(taskMutex);
         //Move on if results have been produced for every task
         while (outputQueue.size() != ps.size()) {
-            //Condition variable sporadically wakes up to check loop condition
-            //this technique avoids busy waiting
-            conditionVariable.wait(lock);
+            std::cout << "BUSY WAIT!" << std::endl;
         }
 
         //Get results from output queue
@@ -162,13 +161,14 @@ ResultType Worker<ProblemType, ResultType>::solve(ProblemType p) {
         Worker<ProblemType, ResultType>* owner;
         std::shared_ptr<Task<ProblemType, ResultType>> stolen;
 
+        //std::cout << "Size of activeWorkers: " << activeWorkers.size() << std::endl;
         //TODO - solve issue with incorrect results or not terminating
         //TODO - perhaps too many things are being added to the active set?
         //While there is a valid task to steal...
-//        while (stealTask(owner, stolen)) {
-//            //...solve the task and write the results back to the owner of the task
-//            owner->putResultOutputQueue(solve(stolen->getProblem()));
-//        }
+        while (stealTask(owner, stolen)) {
+            //...solve the task and write the results back to the owner of the task
+            owner->putResultOutputQueue(solve(stolen->getProblem()));
+        }
 
         //Combine the results and return
         return this->combine(res);
@@ -225,7 +225,7 @@ bool Worker<ProblemType, ResultType>::stealTask(Worker<ProblemType, ResultType>*
         Worker<ProblemType, ResultType>* currentWorker = (*it);
 
         //If thread at same level in tree or deeper
-        if (currentWorker->numActiveThreads >= this->numActiveThreads) {
+        if (currentWorker->numActiveThreads == this->numActiveThreads) {
             //Attempt to get a task from the worker
             task = currentWorker->getTaskInputQueue();
             //Keep track of the worker which requires the result of the task
@@ -250,7 +250,7 @@ bool Worker<ProblemType, ResultType>::stealTask(Worker<ProblemType, ResultType>*
  */
 template<typename ProblemType, typename ResultType>
 int Worker<ProblemType, ResultType>::numThreadsToCreate() {
-    std::lock_guard<std::mutex> lockGuard(queueMutex);
+    std::lock_guard<std::recursive_mutex> lockGuard(queueMutex);
     unsigned int numCPUs = std::thread::hardware_concurrency();
     int freeCPUs = numCPUs - numActiveThreads;
 
@@ -300,7 +300,7 @@ std::shared_ptr<Worker<ProblemType, ResultType>> Worker<ProblemType, ResultType>
  */
 template<typename ProblemType, typename ResultType>
 void Worker<ProblemType, ResultType>::putTaskInputQueue(std::shared_ptr<Task<ProblemType, ResultType>> t) {
-    std::lock_guard<std::mutex> lockGuard(queueMutex);
+    std::lock_guard<std::recursive_mutex> lockGuard(queueMutex);
     inputQueue.push(t);
 }
 
@@ -313,7 +313,7 @@ void Worker<ProblemType, ResultType>::putTaskInputQueue(std::shared_ptr<Task<Pro
  */
 template<typename ProblemType, typename ResultType>
 std::shared_ptr<Task<ProblemType, ResultType>> Worker<ProblemType, ResultType>::getTaskInputQueue() {
-    std::lock_guard<std::mutex> lockGuard(queueMutex);
+    std::lock_guard<std::recursive_mutex> lockGuard(queueMutex);
     if (inputQueue.empty()) return nullptr;
 
     std::shared_ptr<Task<ProblemType, ResultType>> t = inputQueue.front();
@@ -330,19 +330,19 @@ std::shared_ptr<Task<ProblemType, ResultType>> Worker<ProblemType, ResultType>::
  */
 template<typename ProblemType, typename ResultType>
 unsigned int Worker<ProblemType, ResultType>::getSize(std::queue<std::shared_ptr<Task<ProblemType, ResultType>>> queue) {
-    std::lock_guard<std::mutex> lockGuard(queueMutex);
+    std::lock_guard<std::recursive_mutex> lockGuard(queueMutex);
     return queue.size();
 }
 
 template<typename ProblemType, typename ResultType>
 void Worker<ProblemType, ResultType>::putResultOutputQueue(ResultType result) {
-    std::lock_guard<std::mutex> lockGuard(queueMutex);
+    std::lock_guard<std::recursive_mutex> lockGuard(queueMutex);
     outputQueue.push(result);
 }
 
 template<typename ProblemType, typename ResultType>
 ResultType Worker<ProblemType, ResultType>::getResultOutputQueue() {
-    std::lock_guard<std::mutex> lockGuard(queueMutex);
+    std::lock_guard<std::recursive_mutex> lockGuard(queueMutex);
     ResultType result = outputQueue.front();
     outputQueue.pop();
     return result;

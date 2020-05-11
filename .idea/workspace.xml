@@ -77,7 +77,7 @@
       <workItem from="1589025572046" duration="35265000" />
       <workItem from="1589107654001" duration="19003000" />
       <workItem from="1589190346074" duration="12646000" />
-      <workItem from="1589206626168" duration="12491000" />
+      <workItem from="1589206626168" duration="15481000" />
     </task>
     <task id="LOCAL-00001" summary="Implemented divide and conquer pattern presented in paper. Need to implement patterns for quicksort and merge sort. Then need to parallelise solve function of each skeleton to make use of pthreads to run on multiple cores.">
       <created>1588884458990</created>
@@ -177,7 +177,14 @@
       <option name="project" value="LOCAL" />
       <updated>1589213012014</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Simplified implementation of stealWork. Seems incorrect though due to number of active threads at any one time as well as blocking/deadlocking">
+      <created>1589221647940</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1589221647940</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -211,6 +218,18 @@
     <MESSAGE value="Moved code to create and join threads into a function called farm." />
     <MESSAGE value="Added todo outlining what needs to be done to implement work stealing." />
     <MESSAGE value="Wrote code to implement work stealing, need to debug segmentation fault." />
-    <option name="LAST_COMMIT_MESSAGE" value="Wrote code to implement work stealing, need to debug segmentation fault." />
+    <MESSAGE value="Simplified implementation of stealWork. Seems incorrect though due to number of active threads at any one time as well as blocking/deadlocking" />
+    <option name="LAST_COMMIT_MESSAGE" value="Simplified implementation of stealWork. Seems incorrect though due to number of active threads at any one time as well as blocking/deadlocking" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/Worker.h</url>
+          <line>235</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
