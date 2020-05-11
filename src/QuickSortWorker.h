@@ -31,7 +31,7 @@ public:
         return (i + 1);
     }
 
-    QuickSortWorker() : Worker(
+    QuickSortWorker(const unsigned int numProcessors) : Worker(
             //Divide
             [](const List& list) {
                 std::vector<List> lists;
@@ -63,7 +63,9 @@ public:
                 return list.low >= list.high;
             },
             //No active threads initially
-            0
+            0,
+            //Number of processors to run on
+            numProcessors
     ) {
 
     }

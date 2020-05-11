@@ -40,6 +40,9 @@ public:
     //Number of active threads when this thread was created
     unsigned int numActiveThreads;
 
+    //Number of processors to run worker with
+    unsigned int numProcessors;
+
     //Stores created thread
     std::thread thread;
 
@@ -50,9 +53,9 @@ public:
            const std::function<ResultType(std::vector<ResultType>)> &combine,
            const std::function<ResultType(const ProblemType &)> &base,
            const std::function<bool(const ProblemType &)> &threshold,
-           const int numActiveThreads) :
+           const unsigned int numActiveThreads, const unsigned int numProcessors) :
                                                     DCSkeleton<ProblemType, ResultType>(divide, combine, base, threshold),
-                                                    numActiveThreads(numActiveThreads) {}
+                                                    numActiveThreads(numActiveThreads), numProcessors(numProcessors) {}
 
     ResultType solve(ProblemType p);
 
@@ -78,8 +81,6 @@ public:
     void setActive(Worker<ProblemType, ResultType>* worker);
 
     void setInactive(Worker<ProblemType, ResultType>* worker);
-
-    void waitForResults();
 };
 
 #endif //CS4204_P2_DC_WORKER_H

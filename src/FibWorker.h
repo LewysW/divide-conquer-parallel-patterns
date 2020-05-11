@@ -10,7 +10,7 @@ public:
      * Initialises the following functions of the divide and conquer skeleton:
      * divide, combine, base, and threshold
      */
-    FibWorker() : Worker(
+    FibWorker(const unsigned int numProcessors) : Worker(
             //Divide
             [](const int& p) {
                 std::vector<int> children;
@@ -31,7 +31,9 @@ public:
                 return p < 2;
             },
             //No active threads initially
-            0
+            0,
+            //Number of processors to run on
+            numProcessors
     ) {}
 };
 

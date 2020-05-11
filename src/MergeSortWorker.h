@@ -8,7 +8,7 @@
 class MergeSortWorker : public Worker<List, List> {
 public:
 
-    MergeSortWorker() : Worker(
+    MergeSortWorker(const unsigned int numProcessors) : Worker(
             //Divide
             [](const List& list) {
                 std::vector<List> lists;
@@ -94,7 +94,9 @@ public:
                 return list.low >= list.high;
             },
             //No active threads initially
-            0
+            0,
+            //Number of processors to run on
+            numProcessors
     ) {
 
     }

@@ -159,8 +159,7 @@ bool Worker<ProblemType, ResultType>::stealTask(Worker<ProblemType, ResultType>*
 template<typename ProblemType, typename ResultType>
 int Worker<ProblemType, ResultType>::numThreadsToCreate() {
     std::lock_guard<std::recursive_mutex> lockGuard(queueMutex);
-    unsigned int numCPUs = std::thread::hardware_concurrency();
-    int freeCPUs = numCPUs - numActiveThreads;
+    int freeCPUs = numProcessors - numActiveThreads;
 
     //If size of task pool is greater than or equal to the number of free CPUS
     if (inputQueue.size() >= freeCPUs) {
@@ -182,7 +181,7 @@ int Worker<ProblemType, ResultType>::numThreadsToCreate() {
 template<typename ProblemType, typename ResultType>
 std::shared_ptr<Worker<ProblemType, ResultType>> Worker<ProblemType, ResultType>::createWorker(ProblemType p, bool newThread) {
     std::shared_ptr<Worker<ProblemType, ResultType>> worker =
-            std::make_shared<Worker<ProblemType, ResultType>>(this->divide, this->combine, this->base, this->threshold, numActiveThreads);
+            std::make_shared<Worker<ProblemType, ResultType>>(this->divide, this->combine, this->base, this->threshold, numActiveThreads, numProcessors);
     //Function to run ptr->solve and store result in ptr->result
     auto func = ([=]{worker->result = worker->solve(p);});
 

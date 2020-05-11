@@ -4,8 +4,20 @@
 #include "utility.h"
 #include "QuickSortWorker.h"
 #include <random>
+#include <getopt.h>
 
-int main() {
+int main(int argc, char** argv) {
+    int ch;
+    while ((ch = getopt(argc, argv, "v:")) != -1)
+    {
+        switch (ch)
+        {
+            case 'v':
+                std::cout << optarg << std::endl;
+                break;
+        }
+    }
+
     //TODO WRITE BENCHMARKS
 
     //TODO - add parameter to Worker subclasses allow number of cores to be specified
@@ -13,7 +25,7 @@ int main() {
     int n;
     std::cout << "Please enter an integer value: ";
     std::cin >> n;
-    FibWorker fibWorker;
+    FibWorker fibWorker(4);
     std::cout << "Fib(" << n << ") = " << fibWorker.solve(n) << std::endl;
     std::cout << std::endl;
 
@@ -37,7 +49,7 @@ int main() {
     std::cout << "Unsorted list: ";
     printArray(arr, sizeOfList);
 
-    MergeSortWorker mergeSortWorker;
+    MergeSortWorker mergeSortWorker(4);
     mergeSortWorker.solve(List(arr, l, r));
 
     std::cout << "Sorted list: ";
@@ -49,7 +61,7 @@ int main() {
     std::cout << "Unsorted list: ";
     printArray(arr2, sizeOfList);
 
-    QuickSortWorker quickSortWorker;
+    QuickSortWorker quickSortWorker(4);
     quickSortWorker.solve(List(arr2, l, r));
 
     std::cout << "Sorted list: ";
