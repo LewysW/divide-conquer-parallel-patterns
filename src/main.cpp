@@ -48,147 +48,130 @@ int main(int argc, char** argv) {
 }
 
 void runBenchmarks(unsigned int processors, bool runFib, bool runMerge, bool runQSort) {
-    std::set<unsigned int> coresToTest = {1, 2, 4, 8, 12};
-
     //Run each benchmark if enabled
 
     if (runFib) {
-        fibBenchmark(processors, coresToTest);
+        fibBenchmark(processors);
     }
 
     if (runMerge) {
-        mergeSortBenchmark(processors, coresToTest);
+        mergeSortBenchmark(processors);
     }
 
     if (runQSort) {
-        quickSortBenchmark(processors, coresToTest);
+        quickSortBenchmark(processors);
     }
 }
 
-void fibBenchmark(unsigned int processors, std::set<unsigned int> coresToTest) {
-    for (unsigned int p = 1; p <= processors; p++) {
-        //Skip cores which are not in coresToTest
-        if (coresToTest.find(p) == coresToTest.end()) continue;
+void fibBenchmark(unsigned int processors) {
+    FibWorker fibWorker(processors);
 
-        FibWorker fibWorker(p);
+    for (int run = 1; run <= REPEAT_READINGS; run++) {
+        //Names and creates file to write results of current test run to
+        std::string fileName = "../data/fib_" + std::to_string(processors) + "_" + std::to_string(run) + ".csv";
+        std::ofstream outputFile(fileName);
 
-        for (int run = 1; run <= REPEAT_READINGS; run++) {
-            //Names and creates file to write results of current test run to
-            std::string fileName = "../data/fib_" + std::to_string(processors) + "_" + std::to_string(run) + ".csv";
-            std::ofstream outputFile(fileName);
-
-            for (int n = 0; n <= MAX_FIB; n++) {
-                auto startTime = std::chrono::high_resolution_clock::now();
-                unsigned long int result = fibWorker.solve(n);
-                auto endTime = std::chrono::high_resolution_clock::now();
-                auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
-                outputFile << n << ", " << duration.count() << std::endl;
-                std::cout << "Fib(" << n << ") = " << result << ", CPUs = " << std::to_string(p) << ", time = " << duration.count() << "ms" << std::endl;
-            }
+        for (int n = 0; n <= MAX_FIB; n++) {
+            auto startTime = std::chrono::high_resolution_clock::now();
+            unsigned long int result = fibWorker.solve(n);
+            auto endTime = std::chrono::high_resolution_clock::now();
+            auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
+            outputFile << n << ", " << duration.count() << std::endl;
+            std::cout << "Fib(" << n << ") = " << result << ", CPUs = " << std::to_string(processors) << ", time = " << duration.count() << "ms" << std::endl;
         }
     }
 }
 
-void mergeSortBenchmark(unsigned int processors, std::set<unsigned int> coresToTest) {
-    for (unsigned int p = 1; p <= processors; p++) {
-        //Skip cores which are not in coresToTest
-        if (coresToTest.find(p) == coresToTest.end()) continue;
+void mergeSortBenchmark(unsigned int processors) {
+    MergeSortWorker mergeSortWorker(processors);
 
-        MergeSortWorker mergeSortWorker(p);
+    for (int run = 1; run <= REPEAT_READINGS; run++) {
+        //Names and creates file to write results of current test run to
+        std::string fileName = "../data/merge_" + std::to_string(processors) + "_" + std::to_string(run) + ".csv";
+        std::ofstream outputFile(fileName);
 
-        for (int run = 1; run <= REPEAT_READINGS; run++) {
-            //Names and creates file to write results of current test run to
-            std::string fileName = "../data/merge_" + std::to_string(p) + "_" + std::to_string(run) + ".csv";
-            std::ofstream outputFile(fileName);
+        //Create int* to point to list of numbers to be sorted
+        int* arr = (int*) malloc(1 * sizeof(int));
 
-            //Create int* to point to list of numbers to be sorted
-            int* arr = (int*) malloc(1 * sizeof(int));
+        for (int n = LIST_INCREMENT; n <= MAX_LIST_SIZE; n += LIST_INCREMENT) {
+            //Allocate memory for values to be sorted
+            arr = (int*) realloc(arr, n * sizeof(int));
+            int l = 0;
+            int r = n - 1;
 
-            for (int n = LIST_INCREMENT; n <= MAX_LIST_SIZE; n += LIST_INCREMENT) {
-                //Allocate memory for values to be sorted
-                arr = (int*) realloc(arr, n * sizeof(int));
-                int l = 0;
-                int r = n - 1;
-
-                //Assign values such that arr is reverse sort
-                for (int i = 0, j = n; i < n; i++, j--) {
-                    arr[i] = j;
-                }
-
-                //Print unsorted list
-                //std::cout << "\nUnsorted list: " << std::endl;
-               //printArray(arr, n);
-
-                //Sort list and record time taken
-                auto startTime = std::chrono::high_resolution_clock::now();
-                mergeSortWorker.solve(List(arr, l, r));
-                auto endTime = std::chrono::high_resolution_clock::now();
-                auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
-                //Write result to file
-                outputFile << n << ", " << duration.count() << std::endl;
-
-                //Print sorted list
-                //std::cout << "Sorted list: " << std::endl;
-                //printArray(arr, n);
-
-                //Print result to terminal
-                std::cout << "mergesort(" << n << "), CPUs = " << std::to_string(p) << ", time = " << duration.count() << "ms" << std::endl;
+            //Assign values such that arr is reverse sort
+            for (int i = 0, j = n; i < n; i++, j--) {
+                arr[i] = j;
             }
 
-            //Free memory
-            free(arr);
+            //Print unsorted list
+            //std::cout << "\nUnsorted list: " << std::endl;
+           //printArray(arr, n);
+
+            //Sort list and record time taken
+            auto startTime = std::chrono::high_resolution_clock::now();
+            mergeSortWorker.solve(List(arr, l, r));
+            auto endTime = std::chrono::high_resolution_clock::now();
+            auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
+            //Write result to file
+            outputFile << n << ", " << duration.count() << std::endl;
+
+            //Print sorted list
+            //std::cout << "Sorted list: " << std::endl;
+            //printArray(arr, n);
+
+            //Print result to terminal
+            std::cout << "mergesort(" << n << "), CPUs = " << std::to_string(processors) << ", time = " << duration.count() << "ms" << std::endl;
         }
+
+        //Free memory
+        free(arr);
     }
 }
 
-void quickSortBenchmark(unsigned int processors, std::set<unsigned int> coresToTest) {
-    for (unsigned int p = 1; p <= processors; p++) {
-        //Skip cores which are not in coresToTest
-        if (coresToTest.find(p) == coresToTest.end()) continue;
+void quickSortBenchmark(unsigned int processors) {
+    QuickSortWorker quickSortWorker(processors);
 
-        QuickSortWorker quickSortWorker(p);
+    for (int run = 1; run <= REPEAT_READINGS; run++) {
+        //Names and creates file to write results of current test run to
+        std::string fileName = "../data/qsort_" + std::to_string(processors) + "_" + std::to_string(run) + ".csv";
+        std::ofstream outputFile(fileName);
 
-        for (int run = 1; run <= REPEAT_READINGS; run++) {
-            //Names and creates file to write results of current test run to
-            std::string fileName = "../data/qsort_" + std::to_string(processors) + "_" + std::to_string(run) + ".csv";
-            std::ofstream outputFile(fileName);
+        //Create int* to point to list of numbers to be sorted
+        int* arr = (int*) malloc(1 * sizeof(int));
 
-            //Create int* to point to list of numbers to be sorted
-            int* arr = (int*) malloc(1 * sizeof(int));
+        for (int n = LIST_INCREMENT; n <= MAX_LIST_SIZE; n += LIST_INCREMENT) {
+            //Allocate memory for values to be sorted
+            arr = (int*) realloc(arr, n * sizeof(int));
+            int l = 0;
+            int r = n - 1;
 
-            for (int n = LIST_INCREMENT; n <= MAX_LIST_SIZE; n += LIST_INCREMENT) {
-                //Allocate memory for values to be sorted
-                arr = (int*) realloc(arr, n * sizeof(int));
-                int l = 0;
-                int r = n - 1;
+            //Assign values such that arr is reverse sort
+            for (int i = 0, j = n; i < n; i++, j--) {
+                arr[i] = j;
+            }
 
-                //Assign values such that arr is reverse sort
-                for (int i = 0, j = n; i < n; i++, j--) {
-                    arr[i] = j;
-                }
-
-                //Print unsorted list
+            //Print unsorted list
 //                std::cout << "\nUnsorted list: " << std::endl;
 //                printArray(arr, n);
 
-                //Sort list and record time taken
-                auto startTime = std::chrono::high_resolution_clock::now();
-                quickSortWorker.solve(List(arr, l, r));
-                auto endTime = std::chrono::high_resolution_clock::now();
-                auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
-                //Write result to file
-                outputFile << n << ", " << duration.count() << std::endl;
+            //Sort list and record time taken
+            auto startTime = std::chrono::high_resolution_clock::now();
+            quickSortWorker.solve(List(arr, l, r));
+            auto endTime = std::chrono::high_resolution_clock::now();
+            auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
+            //Write result to file
+            outputFile << n << ", " << duration.count() << std::endl;
 
-                //Print sorted list
+            //Print sorted list
 //                std::cout << "Sorted list: " << std::endl;
 //                printArray(arr, n);
 
-                //Print result to terminal
-                std::cout << "qsort(" << n << "), CPUs = " << std::to_string(p) << ", time = " << duration.count() << "ms" << std::endl;
-            }
-
-            //Free memory
-            free(arr);
+            //Print result to terminal
+            std::cout << "qsort(" << n << "), CPUs = " << std::to_string(processors) << ", time = " << duration.count() << "ms" << std::endl;
         }
+
+        //Free memory
+        free(arr);
     }
 }
