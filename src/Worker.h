@@ -12,6 +12,11 @@
 #include <set>
 #include <random>
 
+/**
+ * Code run by thread to solve given problem
+ * @tparam ProblemType
+ * @tparam ResultType
+ */
 template <typename ProblemType, typename ResultType>
 class Worker : public DCSkeleton<ProblemType, ResultType> {
 public:
@@ -49,6 +54,7 @@ public:
     //Allows us to get the return value of thread if this was run using a std::thread
     ResultType result;
 
+    //Constructor for Worker
     Worker<ProblemType, ResultType>(const std::function<std::vector<ProblemType>(const ProblemType &)> &divide,
            const std::function<ResultType(std::vector<ResultType>)> &combine,
            const std::function<ResultType(const ProblemType &)> &base,
@@ -58,27 +64,38 @@ public:
                                                     numActiveThreads(numActiveThreads), numProcessors(numProcessors) {
     }
 
+    //Solves given problem
     ResultType solve(ProblemType p);
 
+    //Returns number of threads a thread can create
     int numThreadsToCreate();
 
+    //Creates a worker (either to be run by a new thread or sequentially)
     std::shared_ptr<Worker<ProblemType, ResultType>> createWorker(ProblemType p, bool newThread);
 
+    //Add a task to the input queue
     void putTaskInputQueue(std::shared_ptr<Task<ProblemType, ResultType>> t);
 
+    //Get a task from the input queue
     std::shared_ptr<Task<ProblemType, ResultType>> getTaskInputQueue();
 
+    //Add a result to the output queue
     void putResultOutputQueue(ResultType result);
 
+    //Get a result from the output queue
     ResultType getResultOutputQueue();
 
+    //Create a number of threads, assign them work, and reap the results
     void farm(int numThreads);
 
+    //Steal a task from another thread
     bool stealTask(Worker<ProblemType, ResultType>*& taskOwner,
             std::shared_ptr<Task<ProblemType, ResultType>>& task);
 
+    //Add worker to active data structure
     void setActive(Worker<ProblemType, ResultType>* worker);
 
+    //Remove worker from active data structure
     void setInactive(Worker<ProblemType, ResultType>* worker);
 };
 

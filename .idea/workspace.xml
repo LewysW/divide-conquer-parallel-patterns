@@ -11,26 +11,17 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6342a3c1-9868-427a-9282-17007d2edf91" name="Default Changelist" comment="Added print statement to print number of cores detected on machine.">
+    <list default="true" id="6342a3c1-9868-427a-9282-17007d2edf91" name="Default Changelist" comment="Code seems to work with 8 cores now">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FibWorker.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/FibWorker.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/List.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/List.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MergeSortWorker.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/MergeSortWorker.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/QuickSortWorker.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/QuickSortWorker.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Task.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Task.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Task.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/.~lock.fib.odf.ods#" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/fib.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/fib.odf.ods" beforeDir="false" afterPath="$PROJECT_DIR$/data/fib.odf.ods" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/merge.csv" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Worker.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Worker.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Worker.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Worker.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/CXX.includecache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/DependInfo.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/Task.cpp.o" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/Worker.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/Worker.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/build.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/cmake_clean.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/cmake_clean.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/depend.internal" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/depend.internal" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/depend.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/link.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/link.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/main.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/progress.make" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/progress.make" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/Makefile.cmake" afterDir="false" />
@@ -40,8 +31,7 @@
       <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CS4204_P2_DC" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CS4204_P2_DC" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CS4204_P2_DC.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CS4204_P2_DC.cbp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/fib_8_1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/fib_8_1.csv" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -82,7 +72,7 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration name="CS4204_P2_DC" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-p 8 -f -m" PASS_PARENT_ENVS_2="true" PROJECT_NAME="CS4204_P2_DC" TARGET_NAME="CS4204_P2_DC" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="CS4204_P2_DC" RUN_TARGET_NAME="CS4204_P2_DC">
+    <configuration name="CS4204_P2_DC" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-p 4 -f -m" PASS_PARENT_ENVS_2="true" PROJECT_NAME="CS4204_P2_DC" TARGET_NAME="CS4204_P2_DC" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="CS4204_P2_DC" RUN_TARGET_NAME="CS4204_P2_DC">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -106,7 +96,8 @@
       <workItem from="1589206626168" duration="15481000" />
       <workItem from="1589231503971" duration="8459000" />
       <workItem from="1589240756531" duration="6890000" />
-      <workItem from="1589265968702" duration="10669000" />
+      <workItem from="1589265968702" duration="16989000" />
+      <workItem from="1589292110250" duration="6638000" />
     </task>
     <task id="LOCAL-00001" summary="Implemented divide and conquer pattern presented in paper. Need to implement patterns for quicksort and merge sort. Then need to parallelise solve function of each skeleton to make use of pthreads to run on multiple cores.">
       <created>1588884458990</created>
@@ -269,7 +260,14 @@
       <option name="project" value="LOCAL" />
       <updated>1589246422940</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Code seems to work with 8 cores now">
+      <created>1589279960128</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1589279960128</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -311,6 +309,7 @@
     <MESSAGE value="Implemented benchmarks. Need to fix segfault with quicksort pattern." />
     <MESSAGE value="Pushing benchmark code to run fib and mergesort on lab machines" />
     <MESSAGE value="Added print statement to print number of cores detected on machine." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added print statement to print number of cores detected on machine." />
+    <MESSAGE value="Code seems to work with 8 cores now" />
+    <option name="LAST_COMMIT_MESSAGE" value="Code seems to work with 8 cores now" />
   </component>
 </project>

@@ -79,17 +79,17 @@ ResultType Worker<ProblemType, ResultType>::solve(ProblemType p) {
             res.push_back(getResultOutputQueue());
         }
 
-//        //Stores owner of stolen task
-//        Worker<ProblemType, ResultType>* owner;
-//        //Stores stolen task
-//        std::shared_ptr<Task<ProblemType, ResultType>> stolen;
-//
-//        //While there is a valid task to steal...
-//        while (stealTask(owner, stolen)) {
-//            //...solve the task and write the results back to the outputQueue of the owner of the task
-//            owner->putResultOutputQueue(solve(stolen->getProblem()));
-//            owner->conditionVariable.notify_one();
-//        }
+        //Stores owner of stolen task
+        Worker<ProblemType, ResultType>* owner;
+        //Stores stolen task
+        std::shared_ptr<Task<ProblemType, ResultType>> stolen;
+
+        //While there is a valid task to steal...
+        while (stealTask(owner, stolen)) {
+            //...solve the task and write the results back to the outputQueue of the owner of the task
+            owner->putResultOutputQueue(solve(stolen->getProblem()));
+            owner->conditionVariable.notify_one();
+        }
 
         //Combine the results and return
         return this->combine(res);
@@ -273,6 +273,12 @@ ResultType Worker<ProblemType, ResultType>::getResultOutputQueue() {
     return res;
 }
 
+/**
+ * Add worker to active set of Worker objects
+ * @tparam ProblemType - type of problem
+ * @tparam ResultType - type of result
+ * @param worker - to add
+ */
 template<typename ProblemType, typename ResultType>
 void Worker<ProblemType, ResultType>::setActive(Worker<ProblemType, ResultType>* worker) {
     std::lock_guard<std::mutex> lockGuard(Worker::activeMutex);
@@ -282,6 +288,12 @@ void Worker<ProblemType, ResultType>::setActive(Worker<ProblemType, ResultType>*
     }
 }
 
+/**
+ * Remove Worker from active set of Worker objects
+ * @tparam ProblemType - type of problem
+ * @tparam ResultType - type of result
+ * @param worker - to remove from set of active workers
+ */
 template<typename ProblemType, typename ResultType>
 void Worker<ProblemType, ResultType>::setInactive(Worker<ProblemType, ResultType>* worker) {
     //If worker active (in set), then remove from active workers
