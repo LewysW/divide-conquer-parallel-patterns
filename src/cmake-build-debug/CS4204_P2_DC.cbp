@@ -99,9 +99,6 @@
 		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/QuickSortWorker.h">
 			<Option target="CS4204_P2_DC"/>
 		</Unit>
-		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/Task.cpp">
-			<Option target="CS4204_P2_DC"/>
-		</Unit>
 		<Unit filename="/home/lewys/Documents/CS4204/CS4204-P2-DC/src/Task.h">
 			<Option target="CS4204_P2_DC"/>
 		</Unit>

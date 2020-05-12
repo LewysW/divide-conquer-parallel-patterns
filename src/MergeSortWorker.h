@@ -5,9 +5,18 @@
 #include "Worker.h"
 #include "List.h"
 
+/**
+ * Represents a worker whose purpose to sort a list using merge sort
+ */
 class MergeSortWorker : public Worker<List, List> {
 public:
-
+    /**
+     * Constructor for MergeSortWorker
+     * Initialises the following functions of the divide and conquer skeleton:
+     * divide, combine, base, and threshold.
+     * Each lambda function maps to a part of the provided sequential merge sort program
+     * @param numProcessors - number of CPU cores to use
+     */
     MergeSortWorker(const unsigned int numProcessors) : Worker(
             //Divide
             [](const List& list) {
@@ -15,6 +24,7 @@ public:
                 //Calculates middle of list
                 int m = list.low + (list.high - list.low) / 2;
                 //Creates two new List objects for the left and right halves of the original list
+                //(both objects store the same int* arr, but have different low and high indexes)
                 List listLeft(list.arr, list.low, m);
                 List listRight(list.arr, m + 1, list.high);
 
@@ -97,9 +107,7 @@ public:
             0,
             //Number of processors to run on
             numProcessors
-    ) {
-
-    }
+    ) {}
 };
 
 

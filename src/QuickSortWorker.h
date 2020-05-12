@@ -4,8 +4,16 @@
 #include "Worker.h"
 #include "List.h"
 
+/**
+ * Represents a worker whose purpose is to sort a list using quick sort
+ */
 class QuickSortWorker : public Worker<List, List> {
 public:
+    /**
+     * Provided swap function to swap two numbers
+     * @param a - pointer to first number
+     * @param b - pointer to second number
+     */
     static void swap(int* a, int* b)
     {
         int t = *a;
@@ -13,6 +21,12 @@ public:
         *b = t;
     }
 
+    /**
+     * Provided quick sort partition function which is used to sort part of the original list
+     * @param arr - list to sort
+     * @param low - lower index of sublist to sort
+     * @param high - upper index of sublist to sort
+     */
     static int partition (int arr[], int low, int high)
     {
         int pivot = arr[high]; // pivot
@@ -31,8 +45,15 @@ public:
         return (i + 1);
     }
 
+    /**
+     * Constructor for QuickSortWorker
+     * Initialises the following functions of the divide and conquer skeleton:
+     * divide, combine, base, and threshold.
+     * Each lambda function maps to a part of the provided sequential quick sort program
+     * @param numProcessors
+     */
     QuickSortWorker(const unsigned int numProcessors) : Worker(
-            //Divide
+            //Divide - sort the left and right sub lists before and after the partition pi
             [](const List& list) {
                 std::vector<List> lists;
                 int pi = QuickSortWorker::partition(list.arr, list.low, list.high);
@@ -40,6 +61,8 @@ public:
                 List listLeft(list.arr, list.low, pi - 1);
                 List listRight(list.arr, pi + 1, list.high);
 
+                //Divide problem in two by defining two List objects
+                //storing the same array but each having different low and high indexes
                 lists.push_back(listLeft);
                 lists.push_back(listRight);
 
@@ -47,7 +70,7 @@ public:
             },
             //Combine
             [](std::vector<List> results) {
-                //In quicksort nothing happens at the combine stage
+                //In quick sort nothing happens at the combine stage
                 //Simply return the whole list
                 int low = results.at(0).low;
                 int high = results.at(results.size() - 1).high;
@@ -66,9 +89,7 @@ public:
             0,
             //Number of processors to run on
             numProcessors
-    ) {
-
-    }
+    ) {}
 };
 
 

@@ -1,6 +1,5 @@
 file(REMOVE_RECURSE
   "CMakeFiles/CS4204_P2_DC.dir/main.cpp.o"
-  "CMakeFiles/CS4204_P2_DC.dir/Task.cpp.o"
   "CMakeFiles/CS4204_P2_DC.dir/Worker.cpp.o"
   "CS4204_P2_DC.pdb"
   "CS4204_P2_DC"

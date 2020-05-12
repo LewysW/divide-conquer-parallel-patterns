@@ -55,7 +55,8 @@ public:
            const std::function<bool(const ProblemType &)> &threshold,
            const unsigned int numActiveThreads, const unsigned int numProcessors) :
                                                     DCSkeleton<ProblemType, ResultType>(divide, combine, base, threshold),
-                                                    numActiveThreads(numActiveThreads), numProcessors(numProcessors) {}
+                                                    numActiveThreads(numActiveThreads), numProcessors(numProcessors) {
+    }
 
     ResultType solve(ProblemType p);
 
@@ -70,8 +71,6 @@ public:
     void putResultOutputQueue(ResultType result);
 
     ResultType getResultOutputQueue();
-
-    unsigned int getSize(std::queue<std::shared_ptr<Task<ProblemType, ResultType>>> queue);
 
     void farm(int numThreads);
 

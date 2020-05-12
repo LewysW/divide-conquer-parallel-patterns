@@ -6,10 +6,16 @@
 #include <utility>
 #include <vector>
 
+/**
+ * Wrapper List class to act as the problem to solve for merge sort and quick sort.
+ */
 class List {
 public:
+    //List to sort
     int* arr;
+    //lower bound position in list to sort
     int low;
+    //Upper bound position in list to sort
     int high;
 
     List() = default;

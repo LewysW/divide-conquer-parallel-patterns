@@ -3,12 +3,17 @@
 
 #include "Worker.h"
 
+/**
+ * Represents a worker whose purpose to find the nth number in the fibonacci sequence
+ */
 class FibWorker : public Worker<int, int> {
 public:
     /**
-     * Constructor for FibSkeleton
+     * Constructor for FibWorker
      * Initialises the following functions of the divide and conquer skeleton:
-     * divide, combine, base, and threshold
+     * divide, combine, base, and threshold.
+     * Each lambda function maps to a part of the provided sequential fibonacci program
+     * @param numProcessors - number of CPU cores to use
      */
     FibWorker(const unsigned int numProcessors) : Worker(
             //Divide
@@ -30,7 +35,7 @@ public:
             [](const int& p) {
                 return p < 2;
             },
-            //No active threads initially
+            //Number of existing threads upon creation of this worker
             0,
             //Number of processors to run on
             numProcessors

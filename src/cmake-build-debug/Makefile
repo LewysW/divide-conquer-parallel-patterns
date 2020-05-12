@@ -123,33 +123,6 @@ CS4204_P2_DC/fast:
 	$(MAKE) -f CMakeFiles/CS4204_P2_DC.dir/build.make CMakeFiles/CS4204_P2_DC.dir/build
 .PHONY : CS4204_P2_DC/fast
 
-Task.o: Task.cpp.o
-
-.PHONY : Task.o
-
-# target to build an object file
-Task.cpp.o:
-	$(MAKE) -f CMakeFiles/CS4204_P2_DC.dir/build.make CMakeFiles/CS4204_P2_DC.dir/Task.cpp.o
-.PHONY : Task.cpp.o
-
-Task.i: Task.cpp.i
-
-.PHONY : Task.i
-
-# target to preprocess a source file
-Task.cpp.i:
-	$(MAKE) -f CMakeFiles/CS4204_P2_DC.dir/build.make CMakeFiles/CS4204_P2_DC.dir/Task.cpp.i
-.PHONY : Task.cpp.i
-
-Task.s: Task.cpp.s
-
-.PHONY : Task.s
-
-# target to generate assembly for a file
-Task.cpp.s:
-	$(MAKE) -f CMakeFiles/CS4204_P2_DC.dir/build.make CMakeFiles/CS4204_P2_DC.dir/Task.cpp.s
-.PHONY : Task.cpp.s
-
 Worker.o: Worker.cpp.o
 
 .PHONY : Worker.o
@@ -213,9 +186,6 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... CS4204_P2_DC"
 	@echo "... edit_cache"
-	@echo "... Task.o"
-	@echo "... Task.i"
-	@echo "... Task.s"
 	@echo "... Worker.o"
 	@echo "... Worker.i"
 	@echo "... Worker.s"

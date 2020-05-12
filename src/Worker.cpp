@@ -1,18 +1,26 @@
 #include "Worker.h"
 #include "List.h"
 
-//TODO - move implementation to cpp file
-
+//Define templates used by existing subclasses
 template class Worker<int, int>;
 template class Worker<List, List>;
 
+//Stores the number of workers which are currently active (in the process of executing tasks)
+//Is static so is shared between all Worker instances
 template <typename ProblemType, typename ResultType>
 std::set<Worker<ProblemType, ResultType>*> Worker<ProblemType, ResultType>::activeWorkers;
 
+//Lock to ensure safe access to the activeWorkers data structure
 template <typename ProblemType, typename ResultType>
 std::mutex Worker<ProblemType, ResultType>::activeMutex;
 
-
+/**
+ * Solves a given problem using the parallel pattern of this object
+ * @tparam ProblemType - type of problem to solve
+ * @tparam ResultType - result of solved problem
+ * @param p - to solve
+ * @return result of problem
+ */
 template<typename ProblemType, typename ResultType>
 ResultType Worker<ProblemType, ResultType>::solve(ProblemType p) {
     //If base condition
@@ -58,9 +66,10 @@ ResultType Worker<ProblemType, ResultType>::solve(ProblemType p) {
         //Worker finished computation
         setInactive(this);
 
-        //Wait for results to be placed in output queue (non busy wait)
+        //Wait for results to be placed in output queue if any have been stolen (non busy wait)
         if (outputQueue.size() != ps.size()) {
             std::unique_lock<std::mutex> lock(taskMutex);
+            //Thread sleeps until outputQueue contains all required solutions
             conditionVariable.wait(lock, [&]{return outputQueue.size() == ps.size();});
         }
 
@@ -70,23 +79,32 @@ ResultType Worker<ProblemType, ResultType>::solve(ProblemType p) {
             res.push_back(getResultOutputQueue());
         }
 
-        Worker<ProblemType, ResultType>* owner;
-        std::shared_ptr<Task<ProblemType, ResultType>> stolen;
-
-        //While there is a valid task to steal...
-        while (stealTask(owner, stolen)) {
-            //...solve the task and write the results back to the owner of the task
-            owner->putResultOutputQueue(solve(stolen->getProblem()));
-            owner->conditionVariable.notify_one();
-        }
+//        //Stores owner of stolen task
+//        Worker<ProblemType, ResultType>* owner;
+//        //Stores stolen task
+//        std::shared_ptr<Task<ProblemType, ResultType>> stolen;
+//
+//        //While there is a valid task to steal...
+//        while (stealTask(owner, stolen)) {
+//            //...solve the task and write the results back to the outputQueue of the owner of the task
+//            owner->putResultOutputQueue(solve(stolen->getProblem()));
+//            owner->conditionVariable.notify_one();
+//        }
 
         //Combine the results and return
         return this->combine(res);
     }
 }
 
+/**
+ * Create a number of workers running using threads and gather their results
+ * @tparam ProblemType - type of problem to solve
+ * @tparam ResultType - type of result of solving problem
+ * @param numThreads - number of threads to create
+ */
 template<typename ProblemType, typename ResultType>
 void Worker<ProblemType, ResultType>::farm(int numThreads) {
+    //Records how many threads are currently running
     numActiveThreads += numThreads;
 
     //Assign tasks from input queue to new threads
@@ -128,14 +146,15 @@ bool Worker<ProblemType, ResultType>::stealTask(Worker<ProblemType, ResultType>*
     taskOwner = nullptr;
     task = nullptr;
 
+    //If no active workers, return false as no tasks to steal
     if (Worker::activeWorkers.size() == 0) return false;
 
     //Iterate through active workers
     for (auto it = Worker::activeWorkers.begin(); it != Worker::activeWorkers.end(); it++) {
         Worker<ProblemType, ResultType>* currentWorker = (*it);
 
-        //If thread at same level in tree or deeper
-        if (currentWorker->numActiveThreads == this->numActiveThreads) {
+        //If Worker was created at same time as this worker or after, then steal task
+        if (currentWorker->numActiveThreads >= this->numActiveThreads) {
             //Attempt to get a task from the worker
             task = currentWorker->getTaskInputQueue();
             //Keep track of the worker which requires the result of the task
@@ -155,13 +174,14 @@ bool Worker<ProblemType, ResultType>::stealTask(Worker<ProblemType, ResultType>*
 /**
  * Gets the number of threads to create
  * (determined by number of free CPUs and threads currently running)
+ * @return - number of threads current thread can create to run Worker objects
  */
 template<typename ProblemType, typename ResultType>
 int Worker<ProblemType, ResultType>::numThreadsToCreate() {
     std::lock_guard<std::recursive_mutex> lockGuard(queueMutex);
     int freeCPUs = numProcessors - numActiveThreads;
 
-    //If size of task pool is greater than or equal to the number of free CPUS
+    //If size of task pool is greater than or equal to the number of free CPUs
     if (inputQueue.size() >= freeCPUs) {
         //Then create a new thread for each free CPU core
         return freeCPUs;
@@ -199,10 +219,9 @@ std::shared_ptr<Worker<ProblemType, ResultType>> Worker<ProblemType, ResultType>
 }
 
 /**
- * Puts a task onto a task pool queue
+ * Puts a task onto the inputQueue
  * @tparam ProblemType - problem type of task
  * @tparam ResultType - result type of task
- * @param queue - queue to enqueue task on
  * @param t - task to enqueue
  */
 template<typename ProblemType, typename ResultType>
@@ -212,15 +231,15 @@ void Worker<ProblemType, ResultType>::putTaskInputQueue(std::shared_ptr<Task<Pro
 }
 
 /**
- * Gets the task at the top of a task pool queue
+ * Gets the task at the top of the input queue
  * @tparam ProblemType - type of problem
  * @tparam ResultType - type of result
- * @param queue - queue to pop task from
- * @return task from queue
+ * @return task from input queue
  */
 template<typename ProblemType, typename ResultType>
 std::shared_ptr<Task<ProblemType, ResultType>> Worker<ProblemType, ResultType>::getTaskInputQueue() {
     std::lock_guard<std::recursive_mutex> lockGuard(queueMutex);
+    //If inputQueue is empty return nullptr
     if (inputQueue.empty()) return nullptr;
 
     std::shared_ptr<Task<ProblemType, ResultType>> t = inputQueue.front();
@@ -229,30 +248,29 @@ std::shared_ptr<Task<ProblemType, ResultType>> Worker<ProblemType, ResultType>::
 }
 
 /**
- * Gets the size of a given queue
+ * Puts a result on the outputQueue
  * @tparam ProblemType - type of problem
  * @tparam ResultType - type of result
- * @param queue - to get the size of
- * @return size of queue
+ * @param result - result to put on outputQueue
  */
-template<typename ProblemType, typename ResultType>
-unsigned int Worker<ProblemType, ResultType>::getSize(std::queue<std::shared_ptr<Task<ProblemType, ResultType>>> queue) {
-    std::lock_guard<std::recursive_mutex> lockGuard(queueMutex);
-    return queue.size();
-}
-
 template<typename ProblemType, typename ResultType>
 void Worker<ProblemType, ResultType>::putResultOutputQueue(ResultType result) {
     std::lock_guard<std::recursive_mutex> lockGuard(queueMutex);
     outputQueue.push(result);
 }
 
+/**
+ * Gets a result from the outputQueue
+ * @tparam ProblemType
+ * @tparam ResultType
+ * @return result at front of outputQueue
+ */
 template<typename ProblemType, typename ResultType>
 ResultType Worker<ProblemType, ResultType>::getResultOutputQueue() {
     std::lock_guard<std::recursive_mutex> lockGuard(queueMutex);
-    ResultType result = outputQueue.front();
+    ResultType res = outputQueue.front();
     outputQueue.pop();
-    return result;
+    return res;
 }
 
 template<typename ProblemType, typename ResultType>
