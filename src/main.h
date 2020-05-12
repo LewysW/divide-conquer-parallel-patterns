@@ -4,7 +4,7 @@
 #define INVALID_ARG -1
 #define REPEAT_READINGS 5
 #define MAX_FIB 37
-#define MAX_LIST_SIZE 100000
+#define MAX_LIST_SIZE 1000000
 #define LIST_INCREMENT 10000
 
 void runBenchmarks(unsigned int processors, bool runFib, bool runMerge, bool runQSort);

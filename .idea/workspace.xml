@@ -11,7 +11,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6342a3c1-9868-427a-9282-17007d2edf91" name="Default Changelist" comment="">
+    <list default="true" id="6342a3c1-9868-427a-9282-17007d2edf91" name="Default Changelist" comment="Implemented benchmarks. Need to fix segfault with quicksort pattern.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/CXX.includecache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/main.cpp.o" afterDir="false" />
@@ -58,7 +58,7 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration name="CS4204_P2_DC" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-p 4 -q" PASS_PARENT_ENVS_2="true" PROJECT_NAME="CS4204_P2_DC" TARGET_NAME="CS4204_P2_DC" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="CS4204_P2_DC" RUN_TARGET_NAME="CS4204_P2_DC">
+    <configuration name="CS4204_P2_DC" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-p 4 -m" PASS_PARENT_ENVS_2="true" PROJECT_NAME="CS4204_P2_DC" TARGET_NAME="CS4204_P2_DC" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="CS4204_P2_DC" RUN_TARGET_NAME="CS4204_P2_DC">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -81,7 +81,7 @@
       <workItem from="1589190346074" duration="12646000" />
       <workItem from="1589206626168" duration="15481000" />
       <workItem from="1589231503971" duration="8459000" />
-      <workItem from="1589240756531" duration="4545000" />
+      <workItem from="1589240756531" duration="5289000" />
     </task>
     <task id="LOCAL-00001" summary="Implemented divide and conquer pattern presented in paper. Need to implement patterns for quicksort and merge sort. Then need to parallelise solve function of each skeleton to make use of pthreads to run on multiple cores.">
       <created>1588884458990</created>
@@ -216,7 +216,14 @@
       <option name="project" value="LOCAL" />
       <updated>1589238001536</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Implemented benchmarks. Need to fix segfault with quicksort pattern.">
+      <created>1589245385972</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1589245385972</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -255,6 +262,18 @@
     <MESSAGE value="Changed busy wait to use std::conditional_variable" />
     <MESSAGE value="Added Makefile" />
     <MESSAGE value="Added command line arguments to select the benchmarks being run as well as the maximum number of processors to run the benchmark using." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added command line arguments to select the benchmarks being run as well as the maximum number of processors to run the benchmark using." />
+    <MESSAGE value="Implemented benchmarks. Need to fix segfault with quicksort pattern." />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented benchmarks. Need to fix segfault with quicksort pattern." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/Worker.cpp</url>
+          <line>192</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

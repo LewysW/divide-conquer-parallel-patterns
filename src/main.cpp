@@ -69,7 +69,7 @@ void fibBenchmark(unsigned int processors, std::set<unsigned int> coresToTest) {
 
         FibWorker fibWorker(p);
 
-        for (int run = 0; run < REPEAT_READINGS; run++) {
+        for (int run = 1; run <= REPEAT_READINGS; run++) {
             //Names and creates file to write results of current test run to
             std::string fileName = "../data/fib_" + std::to_string(processors) + "_" + std::to_string(run) + ".csv";
             std::ofstream outputFile(fileName);
@@ -139,13 +139,13 @@ void mergeSortBenchmark(unsigned int processors, std::set<unsigned int> coresToT
 }
 
 void quickSortBenchmark(unsigned int processors, std::set<unsigned int> coresToTest) {
-    for (unsigned int p = 4; p <= processors; p++) {
+    for (unsigned int p = 1; p <= processors; p++) {
         //Skip cores which are not in coresToTest
         if (coresToTest.find(p) == coresToTest.end()) continue;
 
         QuickSortWorker quickSortWorker(p);
 
-        for (int run = 0; run < REPEAT_READINGS; run++) {
+        for (int run = 1; run <= REPEAT_READINGS; run++) {
             //Names and creates file to write results of current test run to
             std::string fileName = "../data/qsort_" + std::to_string(processors) + "_" + std::to_string(run) + ".csv";
             std::ofstream outputFile(fileName);
