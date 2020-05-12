@@ -57,7 +57,6 @@ public:
             [](const List& list) {
                 std::vector<List> lists;
                 int pi = QuickSortWorker::partition(list.arr, list.low, list.high);
-
                 List listLeft(list.arr, list.low, pi - 1);
                 List listRight(list.arr, pi + 1, list.high);
 

@@ -48,10 +48,10 @@ public:
     //Number of processors to run worker with
     unsigned int numProcessors;
 
-    //Stores created thread
+    //Stores thread solving tasks of this Worker
     std::thread thread;
 
-    //Allows us to get the return value of thread if this was run using a std::thread
+    //Stores the result of the Worker
     ResultType result;
 
     //Constructor for Worker

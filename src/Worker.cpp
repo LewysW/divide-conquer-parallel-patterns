@@ -153,17 +153,14 @@ bool Worker<ProblemType, ResultType>::stealTask(Worker<ProblemType, ResultType>*
     for (auto it = Worker::activeWorkers.begin(); it != Worker::activeWorkers.end(); it++) {
         Worker<ProblemType, ResultType>* currentWorker = (*it);
 
-        //If Worker was created at same time as this worker or after, then steal task
-        if (currentWorker->numActiveThreads >= this->numActiveThreads) {
-            //Attempt to get a task from the worker
-            task = currentWorker->getTaskInputQueue();
-            //Keep track of the worker which requires the result of the task
-            taskOwner = currentWorker;
+        //Attempt to get a task from the worker
+        task = currentWorker->getTaskInputQueue();
+        //Keep track of the worker which requires the result of the task
+        taskOwner = currentWorker;
 
-            //If valid task has been retrieved, return true
-            if (task != nullptr) {
-                return true;
-            }
+        //If valid task has been retrieved, return true
+        if (task != nullptr) {
+            return true;
         }
     }
 
