@@ -49,6 +49,8 @@ int main(int argc, char** argv) {
 void runBenchmarks(unsigned int processors, bool runFib, bool runMerge, bool runQSort) {
     std::set<unsigned int> coresToTest = {1, 2, 4, 8, 12};
 
+    //Run each benchmark if enabled
+    
     if (runFib) {
         fibBenchmark(processors, coresToTest);
     }
