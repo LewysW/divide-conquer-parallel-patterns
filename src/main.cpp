@@ -5,6 +5,7 @@
 #include "QuickSortWorker.h"
 #include <random>
 #include <getopt.h>
+#include <fstream>
 #include "main.h"
 
 int main(int argc, char** argv) {
@@ -42,55 +43,149 @@ int main(int argc, char** argv) {
     }
 
     runBenchmarks(numProcessors, runFib, runMerge, runQSort);
-    //TODO WRITE BENCHMARKS
     return 0;
 }
 
 void runBenchmarks(unsigned int processors, bool runFib, bool runMerge, bool runQSort) {
-    //TODO - add parameter to Worker subclasses allow number of cores to be specified
-    //Solves fibonacci(n)
-    int n;
-    std::cout << "Please enter an integer value: ";
-    std::cin >> n;
-    FibWorker fibWorker(4);
-    std::cout << "Fib(" << n << ") = " << fibWorker.solve(n) << std::endl;
-    std::cout << std::endl;
+    std::set<unsigned int> coresToTest = {1, 2, 4, 8, 12};
 
-    int sizeOfList = 100;
-    int* arr = (int*) malloc(sizeOfList * sizeof(int));
-    int* arr2 = (int*) malloc(sizeOfList * sizeof(int));
-    int l = 0;
-    int r = sizeOfList - 1;
-    //TODO - change to be reverse sorted list
-    std::random_device rd;
-    std::mt19937 mt(rd());
-    std::uniform_real_distribution<double> dist(1.0, 100);
-
-    for (int i = 0; i < sizeOfList; i++) {
-        arr[i] = dist(mt);
-        arr2[i] = dist(mt);
+    if (runFib) {
+        fibBenchmark(processors, coresToTest);
     }
 
-    //Sorts a list using merge sort
-    std::cout << "Merge Sort:" << std::endl;
-    std::cout << "Unsorted list: ";
-    printArray(arr, sizeOfList);
+    if (runMerge) {
+        mergeSortBenchmark(processors, coresToTest);
+    }
 
-    MergeSortWorker mergeSortWorker(4);
-    mergeSortWorker.solve(List(arr, l, r));
+    if (runQSort) {
+        quickSortBenchmark(processors, coresToTest);
+    }
+}
 
-    std::cout << "Sorted list: ";
-    printArray(arr, sizeOfList);
-    std::cout << std::endl;
+void fibBenchmark(unsigned int processors, std::set<unsigned int> coresToTest) {
+    for (unsigned int p = 1; p <= processors; p++) {
+        //Skip cores which are not in coresToTest
+        if (coresToTest.find(p) == coresToTest.end()) continue;
 
-    //Sorts a list using quicksort
-    std::cout << "Quick Sort:" << std::endl;
-    std::cout << "Unsorted list: ";
-    printArray(arr2, sizeOfList);
+        FibWorker fibWorker(p);
 
-    QuickSortWorker quickSortWorker(4);
-    quickSortWorker.solve(List(arr2, l, r));
+        for (int run = 0; run < REPEAT_READINGS; run++) {
+            //Names and creates file to write results of current test run to
+            std::string fileName = "../data/fib_" + std::to_string(processors) + "_" + std::to_string(run) + ".csv";
+            std::ofstream outputFile(fileName);
 
-    std::cout << "Sorted list: ";
-    printArray(arr2, sizeOfList);
+            for (int n = 0; n <= MAX_FIB; n++) {
+                auto startTime = std::chrono::high_resolution_clock::now();
+                unsigned long int result = fibWorker.solve(n);
+                auto endTime = std::chrono::high_resolution_clock::now();
+                auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
+                outputFile << n << ", " << duration.count() << std::endl;
+                std::cout << "Fib(" << n << ") = " << result << ", CPUs = " << std::to_string(p) << ", time = " << duration.count() << "ms" << std::endl;
+            }
+        }
+    }
+}
+
+void mergeSortBenchmark(unsigned int processors, std::set<unsigned int> coresToTest) {
+    for (unsigned int p = 1; p <= processors; p++) {
+        //Skip cores which are not in coresToTest
+        if (coresToTest.find(p) == coresToTest.end()) continue;
+
+        MergeSortWorker mergeSortWorker(p);
+
+        for (int run = 1; run <= REPEAT_READINGS; run++) {
+            //Names and creates file to write results of current test run to
+            std::string fileName = "../data/merge_" + std::to_string(p) + "_" + std::to_string(run) + ".csv";
+            std::ofstream outputFile(fileName);
+
+            //Create int* to point to list of numbers to be sorted
+            int* arr = (int*) malloc(1 * sizeof(int));
+
+            for (int n = LIST_INCREMENT; n <= MAX_LIST_SIZE; n += LIST_INCREMENT) {
+                //Allocate memory for values to be sorted
+                arr = (int*) realloc(arr, n * sizeof(int));
+                int l = 0;
+                int r = n - 1;
+
+                //Assign values such that arr is reverse sort
+                for (int i = 0, j = n; i < n; i++, j--) {
+                    arr[i] = j;
+                }
+
+                //Print unsorted list
+                //std::cout << "\nUnsorted list: " << std::endl;
+               //printArray(arr, n);
+
+                //Sort list and record time taken
+                auto startTime = std::chrono::high_resolution_clock::now();
+                mergeSortWorker.solve(List(arr, l, r));
+                auto endTime = std::chrono::high_resolution_clock::now();
+                auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
+                //Write result to file
+                outputFile << n << ", " << duration.count() << std::endl;
+
+                //Print sorted list
+                //std::cout << "Sorted list: " << std::endl;
+                //printArray(arr, n);
+
+                //Print result to terminal
+                std::cout << "mergesort(" << n << "), CPUs = " << std::to_string(p) << ", time = " << duration.count() << "ms" << std::endl;
+            }
+
+            //Free memory
+            free(arr);
+        }
+    }
+}
+
+void quickSortBenchmark(unsigned int processors, std::set<unsigned int> coresToTest) {
+    for (unsigned int p = 4; p <= processors; p++) {
+        //Skip cores which are not in coresToTest
+        if (coresToTest.find(p) == coresToTest.end()) continue;
+
+        QuickSortWorker quickSortWorker(p);
+
+        for (int run = 0; run < REPEAT_READINGS; run++) {
+            //Names and creates file to write results of current test run to
+            std::string fileName = "../data/qsort_" + std::to_string(processors) + "_" + std::to_string(run) + ".csv";
+            std::ofstream outputFile(fileName);
+
+            //Create int* to point to list of numbers to be sorted
+            int* arr = (int*) malloc(1 * sizeof(int));
+
+            for (int n = LIST_INCREMENT; n <= MAX_LIST_SIZE; n += LIST_INCREMENT) {
+                //Allocate memory for values to be sorted
+                arr = (int*) realloc(arr, n * sizeof(int));
+                int l = 0;
+                int r = n - 1;
+
+                //Assign values such that arr is reverse sort
+                for (int i = 0, j = n; i < n; i++, j--) {
+                    arr[i] = j;
+                }
+
+                //Print unsorted list
+//                std::cout << "\nUnsorted list: " << std::endl;
+//                printArray(arr, n);
+
+                //Sort list and record time taken
+                auto startTime = std::chrono::high_resolution_clock::now();
+                quickSortWorker.solve(List(arr, l, r));
+                auto endTime = std::chrono::high_resolution_clock::now();
+                auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
+                //Write result to file
+                outputFile << n << ", " << duration.count() << std::endl;
+
+                //Print sorted list
+//                std::cout << "Sorted list: " << std::endl;
+//                printArray(arr, n);
+
+                //Print result to terminal
+                std::cout << "qsort(" << n << "), CPUs = " << std::to_string(p) << ", time = " << duration.count() << "ms" << std::endl;
+            }
+
+            //Free memory
+            free(arr);
+        }
+    }
 }
