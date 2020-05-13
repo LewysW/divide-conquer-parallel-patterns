@@ -168,7 +168,7 @@ void quickSortBenchmark(unsigned int processors) {
         //Create int* to point to list of numbers to be sorted
         int* arr = (int*) malloc(1 * sizeof(int));
 
-        for (int n = LIST_INCREMENT; n <= MAX_LIST_SIZE; n += LIST_INCREMENT) {
+        for (int n = QSORT_LIST_INCREMENT; n <= MAX_QSORT_LIST_SIZE; n += QSORT_LIST_INCREMENT) {
             //Allocate memory for values to be sorted
             arr = (int*) realloc(arr, n * sizeof(int));
             int l = 0;

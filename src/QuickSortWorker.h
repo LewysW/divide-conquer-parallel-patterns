@@ -68,7 +68,7 @@ public:
                 return lists;
             },
             //Combine
-            [](std::vector<List> results) {
+            [](const std::vector<List>& results) {
                 //In quick sort nothing happens at the combine stage
                 //Simply return the whole list
                 int low = results.at(0).low;

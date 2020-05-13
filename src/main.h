@@ -12,6 +12,9 @@
 //Amount to increase list size by each increment
 #define LIST_INCREMENT 10000
 
+#define MAX_QSORT_LIST_SIZE 10000
+#define QSORT_LIST_INCREMENT 100
+
 void runBenchmarks(unsigned int processors, bool runFib, bool runMerge, bool runQSort);
 void fibBenchmark(unsigned int processors);
 void mergeSortBenchmark(unsigned int processors);
