@@ -13,6 +13,16 @@
   <component name="ChangeListManager">
     <list default="true" id="6342a3c1-9868-427a-9282-17007d2edf91" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DCSkeleton.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/DCSkeleton.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/CXX.includecache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/Worker.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/Worker.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/depend.internal" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/depend.internal" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/depend.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CMakeFiles/CS4204_P2_DC.dir/main.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmake-build-debug/CS4204_P2_DC" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmake-build-debug/CS4204_P2_DC" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/fib_4_1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/fib_4_1.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/merge_4_1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/merge_4_1.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/qsort_4_1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/qsort_4_1.csv" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -53,7 +63,7 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration name="CS4204_P2_DC" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-p 4 -m" PASS_PARENT_ENVS_2="true" PROJECT_NAME="CS4204_P2_DC" TARGET_NAME="CS4204_P2_DC" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="CS4204_P2_DC" RUN_TARGET_NAME="CS4204_P2_DC">
+    <configuration name="CS4204_P2_DC" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-p 4 -f" PASS_PARENT_ENVS_2="true" PROJECT_NAME="CS4204_P2_DC" TARGET_NAME="CS4204_P2_DC" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="CS4204_P2_DC" RUN_TARGET_NAME="CS4204_P2_DC">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -79,6 +89,7 @@
       <workItem from="1589240756531" duration="6890000" />
       <workItem from="1589265968702" duration="16989000" />
       <workItem from="1589292110250" duration="16100000" />
+      <workItem from="1589368812659" duration="5592000" />
     </task>
     <task id="LOCAL-00001" summary="Implemented divide and conquer pattern presented in paper. Need to implement patterns for quicksort and merge sort. Then need to parallelise solve function of each skeleton to make use of pthreads to run on multiple cores.">
       <created>1588884458990</created>

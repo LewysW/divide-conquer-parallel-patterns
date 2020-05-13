@@ -19,7 +19,7 @@ public:
     //Returns whether the problem has passed some threshold indicating to return the base result
     std::function<bool (const ProblemType& p)> threshold;
     DCSkeleton(const std::function<std::vector<ProblemType>(const ProblemType &)> &divide,
-               const std::function<ResultType(std::vector<ResultType> results)> &combine,
+               const std::function<ResultType(const std::vector<ResultType>& results)> &combine,
                const std::function<ResultType(const ProblemType &)> &base,
                const std::function<bool(const ProblemType &)> &threshold) : divide(divide), combine(combine),
                                                                              base(base), threshold(threshold) {}
