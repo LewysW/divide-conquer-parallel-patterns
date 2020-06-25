@@ -1,5 +1,12 @@
 # Divide and Conquer Parallel Patterns
 
+Overview:
+
+Demonstrates how common divide and conquer problems including the Fibonacci sequence, merge sort, and quick sort
+can be parallelised using a parallel divide and conquer skeleton.
+
+------------------------------------
+
 Compilation/Execution Instructions
 
 Implemented using C++ 17.
