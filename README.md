@@ -1,19 +1,18 @@
-# CS4204-P2-DC
-Second practical for CS4204 Concurrency and Multi-core Architectures module
+# Divide and Conquer Parallel Patterns
 
 Compilation/Execution Instructions
 
-This practical was implemented using C++ 17.
+Implemented using C++ 17.
 
 Compilation
 
-1.  Open a terminal window in the ’CS4204-P2-DC/src’ directory
+1.  Open a terminal window in the ’divide-conquer-parallel-patterns/src’ directory
 
 2.  Run the command ’make’ to run the Makefile
 
 Execution
 
-1.  Open a terminal window in the ’CS4204-P2-DC/src’ directory
+1.  Open a terminal window in the ’divide-conquer-parallel-patterns/src’ directory
 
 2.  Run a command, such as the following, to execute the program:
 
@@ -33,7 +32,7 @@ For example:
 
 The above command runs the Fibonacci, merge sort, and quick sort benchmarks using 4 CPU cores.
 
-The results of each benchmark are written to a file in the ’CS4204-P2-DC/data’ directory.
+The results of each benchmark are written to a file in the ’divide-conquer-parallel-patterns/data’ directory.
 
 The  data  files  produced  are  named  using  the  benchmark  which  was  run,  followed  bythe number of CPU cores used, followed by the current repeat reading performed.
 
